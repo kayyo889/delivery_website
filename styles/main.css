@@ -513,3 +513,73 @@
                     min-height: 44px;
                 }
             }
+            /* Стили для динамических карточек блюд */
+            .dishes-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-bottom: 40px;
+            }
+
+            .dish-card {
+                display: flex;
+                flex-direction: column;
+                padding: 30px 40px;
+                border-radius: 35px;
+                cursor: pointer;
+                filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+                background-color: white;
+                transition: all 0.3s ease;
+            }
+
+            .dish-card.selected {
+                border: 2px solid tomato;
+            }
+
+            .dish-card :last-child {
+                margin-top: auto;
+            }
+
+            .dish-card:hover {
+                border: 2px solid tomato;
+            }
+
+            .dish-card:hover .add-btn {
+                background-color: tomato;
+                color: white;
+            }
+
+            .dish-card img {
+                width: 100%;
+                border-radius: 35px;
+                margin-bottom: 15px;
+            }
+
+            .dish-price {
+                font-size: 20px;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            .dish-name {
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 8px;
+            }
+
+            .dish-count {
+                color: #666;
+                margin-bottom: 15px;
+            }
+
+            .add-btn {
+                background-color: #f1eee9;
+                padding: 10px 30px;
+                border-radius: 10px;
+                cursor: pointer;
+                border: none;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 16px;
+                margin-top: 10px;
+                transition: all 0.3s ease;
+            }
