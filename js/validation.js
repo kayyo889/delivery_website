@@ -28,11 +28,10 @@ function checkCombo(selectedDishes) {
     for (const comboName in combos) {
         const combo = combos[comboName];
         
-        // Проверяем, совпадают ли выбранные блюда с этим комбо
         const soupMatch = selectedDishes.soup && selectedDishes.soup.keyword === combo.soup;
         const mainMatch = selectedDishes.main && selectedDishes.main.keyword === combo.main;
         const drinkMatch = selectedDishes.drink && selectedDishes.drink.keyword === combo.drink;
-        
+
         if (soupMatch && mainMatch && drinkMatch) {
             return { isValid: true, comboName: combo.name, comboPrice: combo.price };
         }
@@ -66,8 +65,7 @@ function showNotification(type, missingItems = []) {
     };
 
     const notification = notifications[type] || notifications['invalid-combo'];
-    
-    // Создаем элемент уведомления
+
     const notificationEl = document.createElement('div');
     notificationEl.className = 'notification-overlay';
     notificationEl.innerHTML = `
@@ -77,7 +75,7 @@ function showNotification(type, missingItems = []) {
             </div>
             <div class="notification-body">
                 <p>${notification.message}</p>
-                ${missingItems.length > 0 ? 
+                ${missingItems.length > 0 ?
                     `<ul class="missing-items">
                         ${missingItems.map(item => `<li>${item}</li>`).join('')}
                     </ul>` : ''}
@@ -88,16 +86,13 @@ function showNotification(type, missingItems = []) {
         </div>
     `;
 
-    // Добавляем на страницу
     document.body.appendChild(notificationEl);
 
-    // Обработчик для кнопки "Окей"
     const okBtn = notificationEl.querySelector('.notification-ok-btn');
     okBtn.addEventListener('click', () => {
         document.body.removeChild(notificationEl);
     });
 
-    // Закрытие при клике вне модального окна
     notificationEl.addEventListener('click', (e) => {
         if (e.target === notificationEl) {
             document.body.removeChild(notificationEl);
@@ -107,56 +102,132 @@ function showNotification(type, missingItems = []) {
 
 // Функция валидации формы
 function validateOrderForm(event) {
-    // Проверяем комбо
     const comboCheck = checkCombo(selectedDishes);
-    
+
     if (!comboCheck.isValid) {
         event.preventDefault();
-        
-        // Определяем, чего не хватает
+
         const missing = [];
         if (!selectedDishes.soup) missing.push('суп');
         if (!selectedDishes.main) missing.push('основное блюдо');
         if (!selectedDishes.drink) missing.push('напиток');
-        
-        // Показываем соответствующее уведомление
+
         if (missing.length === 0) {
-            // Все выбрано, но не комбо
             showNotification('invalid-combo');
         } else if (missing.length === 1) {
-            showNotification(`missing-${missing[0].includes('суп') ? 'soup' : 
+            showNotification(`missing-${missing[0].includes('суп') ? 'soup' :
                            missing[0].includes('основное') ? 'main' : 'drink'}`);
         } else if (missing.length === 2) {
-            // Показываем общее уведомление с перечнем недостающих
             showNotification('invalid-combo', missing);
         } else {
             showNotification('no-lunch');
         }
-        
+
         return false;
     }
-    
-    // Если комбо валидно, обновляем цену в заказе
-    updateOrderPrice(comboCheck.comboPrice);
-    return true;
-}
 
-// Обновление цены в заказе при валидном комбо
-function updateOrderPrice(comboPrice) {
-    // Добавляем выбранные десерты к цене
-    let total = comboPrice;
+    // Если комбо валидно, обновляем цену
+    let total = comboCheck.comboPrice;
     if (selectedDishes.starter) total += selectedDishes.starter.price;
     if (selectedDishes.dessert) total += selectedDishes.dessert.price;
-    
-    // Обновляем отображение цены
+
     const totalAmount = document.getElementById('total-amount');
     if (totalAmount) {
         totalAmount.textContent = `${total} руб.`;
+    }
+
+    return true;
+}
+
+// Добавьте стили для уведомлений в head
+function addNotificationStyles() {
+    if (!document.querySelector('#notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = `
+            .notification-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            }
+            .notification-modal {
+                background-color: white;
+                border-radius: 15px;
+                width: 90%;
+                max-width: 400px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                overflow: hidden;
+                animation: notification-appear 0.3s ease;
+            }
+            @keyframes notification-appear {
+                from { opacity: 0; transform: scale(0.9); }
+                to { opacity: 1; transform: scale(1); }
+            }
+            .notification-header {
+                background-color: #e74c3c;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+            .notification-header h3 {
+                margin: 0;
+                font-size: 20px;
+            }
+            .notification-body {
+                padding: 25px;
+                text-align: center;
+            }
+            .notification-body p {
+                color: #333;
+                margin-bottom: 15px;
+                line-height: 1.5;
+            }
+            .missing-items {
+                text-align: left;
+                margin: 15px 0;
+                padding-left: 20px;
+                color: #666;
+            }
+            .missing-items li {
+                margin-bottom: 8px;
+            }
+            .notification-footer {
+                padding: 20px;
+                text-align: center;
+                border-top: 1px solid #eee;
+            }
+            .notification-ok-btn {
+                background-color: #e74c3c;
+                color: white;
+                border: none;
+                padding: 12px 40px;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .notification-ok-btn:hover {
+                background-color: #c0392b;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            }
+        `;
+        document.head.appendChild(style);
     }
 }
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
+    addNotificationStyles();
+
     const orderForm = document.getElementById('order-form');
     if (orderForm) {
         orderForm.addEventListener('submit', validateOrderForm);
