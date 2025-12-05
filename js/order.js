@@ -110,44 +110,66 @@ function initOrderSection() {
     const orderSection = document.getElementById('order-summary');
     if (!orderSection) {
         const orderHTML = `
-            <div class="order-section">
-                <h2>Ваш заказ</h2>
-                <div id="order-items">
-                    <div class="order-category">
-                        <h3>Суп</h3>
-                        <p class="empty-message" id="soup-message">Блюдо не выбрано</p>
-                        <div class="selected-item" id="soup-item" style="display: none;">
-                            <span class="item-name"></span>
-                            <span class="item-price"></span>
-                        </div>
-                    </div>
-                    <div class="order-category">
-                        <h3>Основное блюдо</h3>
-                        <p class="empty-message" id="main-message">Блюдо не выбрано</p>
-                        <div class="selected-item" id="main-item" style="display: none;">
-                            <span class="item-name"></span>
-                            <span class="item-price"></span>
-                        </div>
-                    </div>
-                    <div class="order-category">
-                        <h3>Напиток</h3>
-                        <p class="empty-message" id="drink-message">Напиток не выбран</p>
-                        <div class="selected-item" id="drink-item" style="display: none;">
-                            <span class="item-name"></span>
-                            <span class="item-price"></span>
-                        </div>
+        <div class="order-section">
+            <h2>Ваш заказ</h2>
+            <div id="order-items">
+                <div class="order-category" id="soup-category" style="display: none;">
+                    <h3>🥣 Суп</h3>
+                    <p class="empty-message">Блюдо не выбрано</p>
+                    <div class="selected-item">
+                        <span class="item-name"></span>
+                        <span class="item-price"></span>
                     </div>
                 </div>
-                <div id="order-total" style="display: none;">
-                    <div class="total-line"></div>
-                    <div class="total-price">
-                        <span>Стоимость заказа:</span>
-                        <span id="total-amount">0 руб.</span>
+                <div class="order-category" id="main-category" style="display: none;">
+                    <h3>🍖 Основное блюдо</h3>
+                    <p class="empty-message">Блюдо не выбрано</p>
+                    <div class="selected-item">
+                        <span class="item-name"></span>
+                        <span class="item-price"></span>
                     </div>
+                </div>
+                <div class="order-category" id="starter-category" style="display: none;">
+                    <h3>🥗 Салат или стартер</h3>
+                    <p class="empty-message">Блюдо не выбрано</p>
+                    <div class="selected-item">
+                        <span class="item-name"></span>
+                        <span class="item-price"></span>
+                    </div>
+                </div>
+                <div class="order-category" id="drink-category" style="display: none;">
+                    <h3>🥤 Напиток</h3>
+                    <p class="empty-message">Напиток не выбран</p>
+                    <div class="selected-item">
+                        <span class="item-name"></span>
+                        <span class="item-price"></span>
+                    </div>
+                </div>
+                <div class="order-category" id="dessert-category" style="display: none;">
+                    <h3>🍰 Десерт</h3>
+                    <p class="empty-message">Десерт не выбран</p>
+                    <div class="selected-item">
+                        <span class="item-name"></span>
+                        <span class="item-price"></span>
+                    </div>
+                </div>
+                <div id="nothing-selected" style="text-align: center; padding: 20px; color: #888; font-style: italic;">
+                    Ничего не выбрано
                 </div>
             </div>
-        `;
+            <div id="order-total" style="display: none;">
+                <div class="total-line"></div>
+                <div class="total-price">
+                    <span>Стоимость заказа:</span>
+                    <span id="total-amount">0 руб.</span>
+                </div>
+            </div>
+        </div>
+    `;
+        const orderSummary = document.getElementById('order-summary');
+        orderSummary.innerHTML = orderHTML;
         
+        updateOrderDisplay();
         // Вставляем перед формой
         const form = document.getElementById('order-form');
         if (form) {
