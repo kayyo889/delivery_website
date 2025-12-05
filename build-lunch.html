@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="styles/order.css">
     <link rel="stylesheet" href="styles/print.css" media="print">
     <style>
-        /* Стили для сетки блюд (встроенные для надежности) */
         .dishes-section {
             margin-bottom: 40px;
         }
@@ -89,7 +88,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Адаптивность */
         @media (max-width: 800px) {
             .dishes-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -137,9 +135,7 @@
     </header>
 
     <main class="container">
-        <!-- Секции с блюдами (будут заполнены JavaScript) -->
         <section id="soup-section" class="dishes-section">
-<<<<<<< HEAD
             <h2>Супы</h2>
             <div class="filters">
                 <button class="filter-btn" data-kind="fish" data-category="soup">рыбный</button>
@@ -148,53 +144,8 @@
                 <button class="filter-btn active" data-kind="all" data-category="soup">все</button>
             </div>
             <div class="dishes-grid">
-                <!-- Карточки супов будут созданы динамически -->
             </div>
         </section>
-=======
-            <section id="starter-section" class="dishes-section">
-                <h2>Салаты и стартеры</h2>
-                
-                <!-- Блок фильтров для салатов -->
-                <div class="filters">
-                    <button class="filter-btn" data-kind="fish" data-category="starter">рыбный</button>
-                    <button class="filter-btn" data-kind="meat" data-category="starter">мясной</button>
-                    <button class="filter-btn" data-kind="veg" data-category="starter">вегетарианский</button>
-                    <button class="filter-btn active" data-kind="all" data-category="starter">все</button>
-                </div>
-                
-                <div class="dishes-grid" id="starter-dishes">
-                    <!-- Карточки блюд будут созданы динамически -->
-                </div>
-            </section>
-        
-            <section id="dessert-section" class="dishes-section">
-                <h2>Десерты</h2>
-            
-            <!-- Блок фильтров для десертов -->
-                <div class="filters">
-                    <button class="filter-btn" data-kind="small" data-category="dessert">маленькая порция</button>
-                    <button class="filter-btn" data-kind="medium" data-category="dessert">средняя порция</button>
-                    <button class="filter-btn" data-kind="large" data-category="dessert">большая порция</button>
-                    <button class="filter-btn active" data-kind="all" data-category="dessert">все</button>
-                </div>
-                
-                <div class="dishes-grid" id="dessert-dishes">
-                    <!-- Карточки блюд будут созданы динамически -->
-                </div>
-            </section>
-                <h2>Супы</h2>
-                <div class="filters">
-                    <button class="filter-btn" data-kind="fish" data-category="soup">рыбный</button>
-                    <button class="filter-btn" data-kind="meat" data-category="soup">мясной</button>
-                    <button class="filter-btn" data-kind="veg" data-category="soup">вегетарианский</button>
-                    <button class="filter-btn active" data-kind="all" data-category="soup">все</button>
-                </div>
-                <div class="dishes-grid">
-                    <!-- Карточки супов будут созданы динамически -->
-                </div>
-            </section>
->>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
 
         <section id="main-section" class="dishes-section">
             <h2>Главные блюда</h2>
@@ -205,7 +156,6 @@
                 <button class="filter-btn active" data-kind="all" data-category="main">все</button>
             </div>
             <div class="dishes-grid">
-                <!-- Карточки главных блюд будут созданы динамически -->
             </div>
         </section>
 
@@ -217,89 +167,11 @@
                 <button class="filter-btn active" data-kind="all" data-category="drink">все</button>
             </div>
             <div class="dishes-grid">
-                <!-- Карточки напитков будут созданы динамически -->
             </div>
         </section>
-<<<<<<< HEAD
+
         <section id="starter-section" class="dishes-section">
             <h2>Салаты и стартеры</h2>
-=======
-        <!-- Блок с комбо-предложениями -->
-        <section id="combo-section" class="combo-section">
-            <h2>Готовые варианты ланча</h2>
-            <div class="combo-grid">
-                <!-- Классический ланч -->
-                <div class="combo-option">
-                    <h3>Классический</h3>
-                    <div class="combo-dishes">
-                        <div class="combo-dish">
-                            <img src="images/combo_soup_classic.jpg" alt="Куриный суп с лапшой">
-                            <p class="combo-dish-label">Куриный суп с лапшой</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/combo_main_classic.jpg" alt="Курица терияки с рисом">
-                            <p class="combo-dish-label">Курица терияки с рисом</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/combo_drink_classic.jpg" alt="Морс клюквенный">
-                            <p class="combo-dish-label">Морс клюквенный</p>
-                        </div>
-                    </div>
-                    <p class="combo-price">780 руб.</p>
-                    <p class="combo-description">Сытный традиционный обед</p>
-                </div>
-        
-                <!-- Рыбный ланч -->
-                <div class="combo-option">
-                    <h3>Рыбный</h3>
-                    <div class="combo-dishes">
-                        <div class="combo-dish">
-                            <img src="images/combo_soup_fish.jpg" alt="Уха по-фински">
-                            <p class="combo-dish-label">Уха по-фински</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/combo_main_fish.jpg" alt="Лосось на гриле">
-                            <p class="combo-dish-label">Лосось на гриле</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/combo_drink_fish.jpg" alt="Апельсиновый сок">
-                            <p class="combo-dish-label">Апельсиновый сок</p>
-                        </div>
-                    </div>
-                    <p class="combo-price">930 руб.</p>
-                    <p class="combo-description">Для любителей морепродуктов</p>
-                </div>
-        
-                <!-- Вегетарианский ланч -->
-                <div class="combo-option">
-                    <h3>Вегетарианский</h3>
-                    <div class="combo-dishes">
-                        <div class="combo-dish">
-                            <img src="images/combo_soup_veg.jpg" alt="Грибной крем-суп">
-                            <p class="combo-dish-label">Грибной крем-суп</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/combo_main_veg.jpg" alt="Овощное рагу">
-                            <p class="combo-dish-label">Овощное рагу</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/combo_drink_veg.jpg" alt="Лимонад мятный">
-                            <p class="combo-dish-label">Лимонад мятный</p>
-                        </div>
-                    </div>
-                    <p class="combo-price">730 руб.</p>
-                    <p class="combo-description">Без мяса, но очень вкусно</p>
-                </div>
-            </div>
-        
-            <div class="dessert-note">
-                <p><strong>Десерты можно добавить к любому ланчу за дополнительную плату.</strong></p>
-                <p class="small-text">Выберите десерт из раздела выше и добавьте к заказу</p>
-            </div>
-        </section>
->>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
-
-            <!-- Блок фильтров для салатов -->
             <div class="filters">
                 <button class="filter-btn" data-kind="fish" data-category="starter">рыбный</button>
                 <button class="filter-btn" data-kind="meat" data-category="starter">мясной</button>
@@ -308,14 +180,12 @@
             </div>
 
             <div class="dishes-grid" id="starter-dishes">
-                <!-- Карточки блюд будут созданы динамически -->
             </div>
         </section>
 
         <section id="dessert-section" class="dishes-section">
             <h2>Десерты</h2>
 
-            <!-- Блок фильтров для десертов -->
             <div class="filters">
                 <button class="filter-btn" data-kind="small" data-category="dessert">маленькая порция</button>
                 <button class="filter-btn" data-kind="medium" data-category="dessert">средняя порция</button>
@@ -324,17 +194,14 @@
             </div>
 
             <div class="dishes-grid" id="dessert-dishes">
-                <!-- Карточки блюд будут созданы динамически -->
             </div>
         </section>
-        <!-- Раздел "Ваш заказ" (создается JavaScript) -->
+
         <div id="order-summary"></div>
 
-        <!-- Форма оформления заказа -->
         <section class="order-form-section">
             <h2>Оформление заказа</h2>
             <form id="order-form" action="https://httpbin.org/post" method="post">
-                <!-- Скрытые поля для выбранных блюд -->
                 <input type="hidden" id="soup-input" name="soup">
                 <input type="hidden" id="main-input" name="main">
                 <input type="hidden" id="starter-input" name="starter">
@@ -390,20 +257,9 @@
         </div>
     </footer>
 
-    <!-- Подключение JavaScript -->
-<<<<<<< HEAD
     <script src="js/dishes.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/order.js"></script>
-
-
-
-
-=======
-    <script src="js/dishes.js"></script>    
-    <script src="js/filters.js"></script>   
-    <script src="js/order.js"></script>     
     <script src="js/validation.js"></script>
->>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
 </body>
 </html>

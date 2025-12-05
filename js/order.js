@@ -1,5 +1,4 @@
 // Объект для хранения выбранных блюд
-<<<<<<< HEAD
 let selectedDishes = {
     soup: null,
     main: null,
@@ -7,15 +6,6 @@ let selectedDishes = {
     drink: null,
     dessert: null
 };
-=======
-let selectedDishes = { 
-    soup: null, 
-    main: null, 
-    starter: null, 
-    drink: null, 
-    dessert: null
- };
->>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
 
 // DOM элементы
 let orderForm;
@@ -23,16 +13,16 @@ let orderForm;
 // Инициализация после загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
     orderForm = document.getElementById('order-form');
-    
+
     // Сортировка блюд по алфавиту внутри категорий
     sortDishesByCategory();
-    
+
     // Динамическое создание карточек блюд
     createDishCards();
-    
+
     // Инициализация раздела заказа
     initOrderSection();
-    
+
     // Обработчик отправки формы
     if (orderForm) {
         orderForm.addEventListener('submit', handleFormSubmit);
@@ -53,15 +43,14 @@ function createDishCards() {
         main: dishes.filter(dish => dish.category === 'main'),
         drink: dishes.filter(dish => dish.category === 'drink')
     };
-    
+
     // Создаем карточки для каждой категории
     Object.keys(categories).forEach(category => {
         const section = document.querySelector(`#${category}-section .dishes-grid`);
         if (!section) return;
-        
+
         // Очищаем секцию
         section.innerHTML = '';
-        
 
         categories[category].forEach(dish => {
             const dishCard = createDishCardElement(dish);
@@ -70,12 +59,11 @@ function createDishCards() {
     });
 }
 
-
 function createDishCardElement(dish) {
     const card = document.createElement('div');
     card.className = 'dish-card';
     card.setAttribute('data-dish', dish.keyword);
-    
+
     card.innerHTML = `
         <img src="${dish.image}" alt="${dish.name}">
         <p class="dish-price">${dish.price} руб.</p>
@@ -83,35 +71,31 @@ function createDishCardElement(dish) {
         <p class="dish-count">${dish.count}</p>
         <button class="add-btn" type="button">Добавить</button>
     `;
-    
 
     const addButton = card.querySelector('.add-btn');
     addButton.addEventListener('click', function() {
         selectDish(dish);
     });
-    
+
     return card;
 }
 
-
 function selectDish(dish) {
-
     document.querySelectorAll('.dish-card').forEach(card => {
         card.classList.remove('selected');
     });
-    
 
     const selectedCard = document.querySelector(`[data-dish="${dish.keyword}"]`);
     if (selectedCard) {
         selectedCard.classList.add('selected');
     }
-    
+
     // Сохраняем выбранное блюдо
     selectedDishes[dish.category] = dish;
-    
+
     // Обновляем раздел заказа
     updateOrderSection();
-    
+
     // Обновляем скрытые поля формы
     updateHiddenFields();
 }
@@ -180,15 +164,14 @@ function initOrderSection() {
     `;
         const orderSummary = document.getElementById('order-summary');
         orderSummary.innerHTML = orderHTML;
-        
-        updateOrderDisplay();
+
         // Вставляем перед формой
         const form = document.getElementById('order-form');
         if (form) {
             form.insertAdjacentHTML('beforebegin', orderHTML);
         }
     }
-    
+
     // Первоначальное обновление
     updateOrderSection();
 }
@@ -198,12 +181,12 @@ function updateOrderSection() {
     const categories = ['soup', 'main', 'drink'];
     let hasSelectedItems = false;
     let totalAmount = 0;
-    
+
     categories.forEach(category => {
         const dish = selectedDishes[category];
         const messageElem = document.getElementById(`${category}-message`);
         const itemElem = document.getElementById(`${category}-item`);
-        
+
         if (dish) {
             // Показываем выбранное блюдо
             if (messageElem) messageElem.style.display = 'none';
@@ -220,11 +203,11 @@ function updateOrderSection() {
             if (itemElem) itemElem.style.display = 'none';
         }
     });
-    
+
     // Обновляем общую стоимость
     const orderTotal = document.getElementById('order-total');
     const totalAmountElem = document.getElementById('total-amount');
-    
+
     if (hasSelectedItems) {
         if (orderTotal) orderTotal.style.display = 'block';
         if (totalAmountElem) totalAmountElem.textContent = `${totalAmount} руб.`;
@@ -236,7 +219,7 @@ function updateOrderSection() {
 // Обновление скрытых полей формы
 function updateHiddenFields() {
     const categories = ['soup', 'main', 'drink'];
-    
+
     categories.forEach(category => {
         const input = document.getElementById(`${category}-input`);
         if (input) {
@@ -250,13 +233,13 @@ function updateHiddenFields() {
 function handleFormSubmit(event) {
     // Проверяем, выбраны ли все блюда
     const allSelected = selectedDishes.soup && selectedDishes.main && selectedDishes.drink;
-    
+
     if (!allSelected) {
         event.preventDefault();
         alert('Пожалуйста, выберите блюда из всех категорий перед оформлением заказа.');
         return false;
     }
-    
+
     // Можно добавить дополнительные проверки здесь
     return true;
 }
