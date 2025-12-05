@@ -139,14 +139,57 @@
     <main class="container">
         <!-- Секции с блюдами (будут заполнены JavaScript) -->
         <section id="soup-section" class="dishes-section">
-            <h2>Супы</h2>
-            <div class="dishes-grid">
-                <!-- Карточки супов будут созданы динамически -->
-            </div>
-        </section>
+            <section id="starter-section" class="dishes-section">
+                <h2>Салаты и стартеры</h2>
+                
+                <!-- Блок фильтров для салатов -->
+                <div class="filters">
+                    <button class="filter-btn" data-kind="fish" data-category="starter">рыбный</button>
+                    <button class="filter-btn" data-kind="meat" data-category="starter">мясной</button>
+                    <button class="filter-btn" data-kind="veg" data-category="starter">вегетарианский</button>
+                    <button class="filter-btn active" data-kind="all" data-category="starter">все</button>
+                </div>
+                
+                <div class="dishes-grid" id="starter-dishes">
+                    <!-- Карточки блюд будут созданы динамически -->
+                </div>
+            </section>
+        
+            <section id="dessert-section" class="dishes-section">
+                <h2>Десерты</h2>
+            
+            <!-- Блок фильтров для десертов -->
+                <div class="filters">
+                    <button class="filter-btn" data-kind="small" data-category="dessert">маленькая порция</button>
+                    <button class="filter-btn" data-kind="medium" data-category="dessert">средняя порция</button>
+                    <button class="filter-btn" data-kind="large" data-category="dessert">большая порция</button>
+                    <button class="filter-btn active" data-kind="all" data-category="dessert">все</button>
+                </div>
+                
+                <div class="dishes-grid" id="dessert-dishes">
+                    <!-- Карточки блюд будут созданы динамически -->
+                </div>
+            </section>
+                <h2>Супы</h2>
+                <div class="filters">
+                    <button class="filter-btn" data-kind="fish" data-category="soup">рыбный</button>
+                    <button class="filter-btn" data-kind="meat" data-category="soup">мясной</button>
+                    <button class="filter-btn" data-kind="veg" data-category="soup">вегетарианский</button>
+                    <button class="filter-btn active" data-kind="all" data-category="soup">все</button>
+                </div>
+                <div class="dishes-grid">
+                    <!-- Карточки супов будут созданы динамически -->
+                </div>
+            </section>
 
         <section id="main-section" class="dishes-section">
             <h2>Главные блюда</h2>
+            <div class="filters">
+                <button class="filter-btn" data-kind="fish" data-category="main">рыбное</button>
+                <button class="filter-btn" data-kind="meat" data-category="main">мясное</button>
+                <button class="filter-btn" data-kind="veg" data-category="main">вегетарианское</button>
+                <button class="filter-btn active" data-kind="all" data-category="main">все</button>
+            </div>
             <div class="dishes-grid">
                 <!-- Карточки главных блюд будут созданы динамически -->
             </div>
@@ -154,6 +197,11 @@
 
         <section id="drink-section" class="dishes-section">
             <h2>Напитки</h2>
+            <div class="filters">
+                <button class="filter-btn" data-kind="cold" data-category="drink">холодный</button>
+                <button class="filter-btn" data-kind="hot" data-category="drink">горячий</button>
+                <button class="filter-btn active" data-kind="all" data-category="drink">все</button>
+            </div>
             <div class="dishes-grid">
                 <!-- Карточки напитков будут созданы динамически -->
             </div>
