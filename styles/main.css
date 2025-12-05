@@ -583,3 +583,55 @@
                 margin-top: 10px;
                 transition: all 0.3s ease;
             }
+            .filters {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding: 15px;
+                background-color: #f8f9fa;
+                border-radius: 10px;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                background-color: white;
+                border: 2px solid #e0e0e0;
+                border-radius: 25px;
+                cursor: pointer;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 14px;
+                font-weight: 500;
+                color: #555;
+                transition: all 0.3s ease;
+                min-width: 120px;
+                text-align: center;
+            }
+
+            .filter-btn:hover {
+                border-color: #e74c3c;
+                color: #e74c3c;
+                transform: translateY(-2px);
+            }
+
+            .filter-btn.active {
+                background-color: #e74c3c;
+                border-color: #e74c3c;
+                color: white;
+                font-weight: 600;
+            }
+
+            /* Стили для новых категорий в разделе заказа */
+            .order-category:nth-child(4) h3::before {
+                content: "🥗 ";
+            }
+
+            .order-category:nth-child(5) h3::before {
+                content: "🍰 ";
+            }
+
+            .order-category h3 {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }

@@ -2,7 +2,9 @@
 let selectedDishes = {
     soup: null,
     main: null,
-    drink: null
+    starter: null,
+    drink: null,
+    dessert: null
 };
 
 // DOM элементы
@@ -50,7 +52,7 @@ function createDishCards() {
         // Очищаем секцию
         section.innerHTML = '';
         
-        // Создаем карточки для каждого блюда
+
         categories[category].forEach(dish => {
             const dishCard = createDishCardElement(dish);
             section.appendChild(dishCard);
@@ -58,7 +60,7 @@ function createDishCards() {
     });
 }
 
-// Создание HTML элемента карточки блюда
+
 function createDishCardElement(dish) {
     const card = document.createElement('div');
     card.className = 'dish-card';
@@ -72,7 +74,7 @@ function createDishCardElement(dish) {
         <button class="add-btn" type="button">Добавить</button>
     `;
     
-    // Добавляем обработчик клика на кнопку
+
     const addButton = card.querySelector('.add-btn');
     addButton.addEventListener('click', function() {
         selectDish(dish);
@@ -81,14 +83,14 @@ function createDishCardElement(dish) {
     return card;
 }
 
-// Выбор блюда
+
 function selectDish(dish) {
-    // Снимаем выделение со всех карточек
+
     document.querySelectorAll('.dish-card').forEach(card => {
         card.classList.remove('selected');
     });
     
-    // Выделяем выбранную карточку
+
     const selectedCard = document.querySelector(`[data-dish="${dish.keyword}"]`);
     if (selectedCard) {
         selectedCard.classList.add('selected');
