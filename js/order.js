@@ -1,9 +1,11 @@
 // Объект для хранения выбранных блюд
-let selectedDishes = {
-    soup: null,
-    main: null,
-    drink: null
-};
+let selectedDishes = { 
+    soup: null, 
+    main: null, 
+    starter: null, 
+    drink: null, 
+    dessert: null
+ };
 
 // DOM элементы
 let orderForm;
