@@ -583,7 +583,6 @@
                 margin-top: 10px;
                 transition: all 0.3s ease;
             }
-<<<<<<< HEAD
             .filters {
                 display: flex;
                 flex-wrap: wrap;
@@ -626,7 +625,6 @@
                 align-items: center;
                 gap: 10px;
             }
-=======
 /* Стили для комбо-предложений */
             .combo-section {
                 background-color: #fff;
