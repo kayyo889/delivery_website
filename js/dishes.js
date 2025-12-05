@@ -55,7 +55,11 @@ const dishes = [
         count: "320 г",
         image: "images/soup3.jpg"
     },
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
     // ========== ГЛАВНЫЕ БЛЮДА (6 блюд) ==========
     {
         keyword: "grilled_salmon",
@@ -111,7 +115,11 @@ const dishes = [
         count: "400 г",
         image: "images/main_veg2.jpg"
     },
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
     // ========== НАПИТКИ (6 блюд) ==========
     {
         keyword: "cranberry_juice",
@@ -167,7 +175,11 @@ const dishes = [
         count: "300 мл",
         image: "images/drink_hot3.jpg"
     },
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
     // ========== САЛАТЫ И СТАРТЕРЫ (6 блюд) ==========
     {
         keyword: "shrimp_salad",
@@ -223,7 +235,11 @@ const dishes = [
         count: "3 шт",
         image: "images/starter_veg4.jpg"
     },
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
     // ========== ДЕСЕРТЫ (6 блюд) ==========
     {
         keyword: "tiramisu",

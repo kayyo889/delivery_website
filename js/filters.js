@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // Функция для создания фильтров
+=======
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
 function initFilters() {
     // Обработчики для всех кнопок фильтров
     document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -169,6 +172,7 @@ function initOrderSection() {
     
     updateOrderDisplay();
 }
+<<<<<<< HEAD
 
 // Обновленный объект для хранения выбранных блюд
 let selectedDishes = {
@@ -299,3 +303,5 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     });
 });
+=======
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
