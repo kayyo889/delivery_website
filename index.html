@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LunchExpress - доставка бизнес-ланчей в Москве</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>LunchExpress</h1>
+                <nav>
+                    <ul class="nav-flex">
+                        <li><a href="index.html" class="active">Главная</a></li>
+                        <li><a href="build-lunch.html">Собрать ланч</a></li>
+                        <li><a href="#feedback">Обратная связь</a></li>
+                        <li><a href="#auth">Вход</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section id="about" class="about-company">
+            <div class="about-text">
+                <h2>О компании</h2>
+                <p>LunchExpress - ведущий поставщик бизнес-ланчей в Москве. Мы специализируемся на доставке вкусных, полезных и сбалансированных обедов прямо в ваш офис.</p>
+                <p>Наша команда профессиональных поваров ежедневно готовит свежие блюда из качественных продуктов, чтобы вы могли насладиться вкусным обедом без лишних хлопот.</p>
+                <p>Мы понимаем, как важно для бизнеса эффективное использование времени, поэтому предлагаем удобную и быструю доставку в установленные сроки.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://avatars.mds.yandex.net/get-altay/4392922/2a0000017c6191e3e71a9559f33147e344fb/XXL_height" alt="Доставка бизнес-ланчей" width="600" height="400">
+            </div>
+        </section>
+
+        <section id="advantages">
+            <h2>Наши преимущества</h2>
+            <ul>
+                <li><strong>Свежесть и качество:</strong> Все блюда готовятся в день доставки из свежих продуктов от проверенных поставщиков.</li>
+                <li><strong>Разнообразное меню:</strong> Ежедневно обновляемое меню с учетом сезонности и предпочтений наших клиентов.</li>
+                <li><strong>Быстрая доставка:</strong> Доставляем заказы точно в срок, чтобы вы могли насладиться горячим обедом.</li>
+                <li><strong>Индивидуальный подход:</strong> Возможность составления индивидуального меню с учетом диетических потребностей.</li>
+                <li><strong>Доступные цены:</strong> Предлагаем качественные бизнес-ланчи по конкурентным ценам.</li>
+            </ul>
+        </section>
+
+        <section id="popular">
+
+            <h2>Популярные блюда</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Блюдо</th>
+                        <th>Описание</th>
+                        <th>Вес</th>
+                        <th>Цена</th>
+                        <th>Кол-во заказов**</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Куриный суп с лапшой</td>
+                        <td>Ароматный куриный бульон с домашней лапшой и свежей зеленью</td>
+                        <td>350 г</td>
+                        <td>250 руб.</td>
+                        <td>1,247</td>
+                    </tr>
+                    <tr>
+                        <td>Греческий салат</td>
+                        <td>Свежие овощи, оливки, сыр фета с оливковым маслом и специями</td>
+                        <td>280 г</td>
+                        <td>320 руб.</td>
+                        <td>987</td>
+                    </tr>
+                    <tr class="high-demand">
+                        <td>Курица терияки с рисом</td>
+                        <td>Нежное куриное филе в соусе терияки с отварным рисом</td>
+                        <td>400 г</td>
+                        <td>380 руб.</td>
+                        <td>1,532</td>
+                    </tr>
+                    <tr>
+                        <td>Лосось на гриле</td>
+                        <td>Филе лосося с овощами гриль и картофельным пюре</td>
+                        <td>350 г</td>
+                        <td>450 руб.</td>
+                        <td>845</td>
+                    </tr>
+                    <tr class="high-demand">
+                        <td>Паста Карбонара</td>
+                        <td>Спагетти с беконом, сливочным соусом и пармезаном</td>
+                        <td>350 г</td>
+                        <td>350 руб.</td>
+                        <td>1,689</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 10px; font-style: italic; color: #666; font-size: 14px;">
+                * Блюда с желтым фоном - самые популярные среди наших клиентов <br>
+                ** Кол-во заказов за последний месяц
+            </p>
+        </section>
+        <section id="feedback" class="form-section">
+            <div class="container">
+                <h2>Обратная связь</h2>
+                <form class="contact-form" action="https://httpbin.org/post" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="fio">ФИО *</label>
+                        <input type="text" id="fio" name="fio" required placeholder="Введите ваше полное имя">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Откуда узнали о нас? *</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="source" value="search" required>
+                                <span class="radio-custom"></span>
+                                Поиск в интернете
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="source" value="friends" required>
+                                <span class="radio-custom"></span>
+                                Рекомендации друзей
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="source" value="social" required>
+                                <span class="radio-custom"></span>
+                                Социальные сети
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="source" value="ad" required>
+                                <span class="radio-custom"></span>
+                                Реклама
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="request-type">Тип обращения *</label>
+                        <select id="request-type" name="request_type" required>
+                            <option value="">Выберите тип обращения</option>
+                            <option value="complaint">Жалоба</option>
+                            <option value="suggestion">Предложение</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Текст сообщения *</label>
+                        <textarea id="message" name="message" required placeholder="Опишите ваше обращение подробно..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attachment">Вложения</label>
+                        <input type="file" id="attachment" name="attachment" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                        <small>Можно прикрепить файлы: JPG, PNG, PDF, DOC (макс. 5MB)</small>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="consent" required>
+                            <span class="checkbox-custom"></span>
+                            Даю согласие на обработку персональных данных *
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Отправить сообщение</button>
+                </form>
+            </div>
+        </section>
+        <section id="auth" class="auth-section">
+            <div class="auth-container">
+                <div class="auth-form">
+                    <h2>Вход в личный кабинет</h2>
+                    <form action="https://httpbin.org/post" method="post">
+                        <div class="form-group">
+                            <label for="login">Логин</label>
+                            <input type="text" id="login" name="login" required placeholder="Введите ваш логин">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" id="password" name="password" required placeholder="Введите ваш пароль">
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="remember">
+                                <span class="checkbox-custom"></span>
+                                Запомнить меня
+                            </label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <h3>Контакты</h3>
+                    <p>Адрес: г. Москва, ул. Печкина д. Огуречкина</p>
+                    <p>Телефон: <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                    <p>Email: <a href="mailto:info@lunchexpress.ru">info@lunchexpress.ru</a></p>
+                    <p>Время работы: Пн-Вс с 9:00 до 18:00</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

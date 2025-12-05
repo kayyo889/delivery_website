@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Собрать ланч - LunchExpress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="styles/validation.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/order.css">
+    <link rel="stylesheet" href="styles/print.css" media="print">
+    <style>
+        /* Стили для сетки блюд (встроенные для надежности) */
+        .dishes-section {
+            margin-bottom: 40px;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .dish-card {
+            display: flex;
+            flex-direction: column;
+            padding: 30px 40px;
+            border-radius: 35px;
+            cursor: pointer;
+            filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+            background-color: white;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .dish-card:hover {
+            border-color: tomato;
+        }
+
+        .dish-card:hover .add-btn {
+            background-color: tomato;
+            color: white;
+        }
+
+        .dish-card.selected {
+            border: 2px solid tomato;
+        }
+
+        .dish-card.selected .add-btn {
+            background-color: tomato;
+            color: white;
+        }
+
+        .dish-card img {
+            width: 100%;
+            border-radius: 35px;
+            margin-bottom: 15px;
+        }
+
+        .dish-price {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .dish-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .dish-count {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .add-btn {
+            background-color: #f1eee9;
+            padding: 10px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            margin-top: auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 800px) {
+            .dishes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dish-card {
+                padding: 20px 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dishes-grid {
+                grid-template-columns: 1fr;
+            }
+            .dish-card {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .order-category h3 {
+                font-size: 16px;
+            }
+            .selected-item {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>LunchExpress</h1>
+                <nav>
+                    <ul class="nav-flex">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="build-lunch.html" class="active">Собрать ланч</a></li>
+                        <li><a href="index.html#feedback">Обратная связь</a></li>
+                        <li><a href="index.html#auth">Вход</a></li>
+                        <li><a href="index.html#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Секции с блюдами (будут заполнены JavaScript) -->
+        <section id="soup-section" class="dishes-section">
+<<<<<<< HEAD
+            <h2>Супы</h2>
+            <div class="filters">
+                <button class="filter-btn" data-kind="fish" data-category="soup">рыбный</button>
+                <button class="filter-btn" data-kind="meat" data-category="soup">мясной</button>
+                <button class="filter-btn" data-kind="veg" data-category="soup">вегетарианский</button>
+                <button class="filter-btn active" data-kind="all" data-category="soup">все</button>
+            </div>
+            <div class="dishes-grid">
+                <!-- Карточки супов будут созданы динамически -->
+            </div>
+        </section>
+=======
+            <section id="starter-section" class="dishes-section">
+                <h2>Салаты и стартеры</h2>
+                
+                <!-- Блок фильтров для салатов -->
+                <div class="filters">
+                    <button class="filter-btn" data-kind="fish" data-category="starter">рыбный</button>
+                    <button class="filter-btn" data-kind="meat" data-category="starter">мясной</button>
+                    <button class="filter-btn" data-kind="veg" data-category="starter">вегетарианский</button>
+                    <button class="filter-btn active" data-kind="all" data-category="starter">все</button>
+                </div>
+                
+                <div class="dishes-grid" id="starter-dishes">
+                    <!-- Карточки блюд будут созданы динамически -->
+                </div>
+            </section>
+        
+            <section id="dessert-section" class="dishes-section">
+                <h2>Десерты</h2>
+            
+            <!-- Блок фильтров для десертов -->
+                <div class="filters">
+                    <button class="filter-btn" data-kind="small" data-category="dessert">маленькая порция</button>
+                    <button class="filter-btn" data-kind="medium" data-category="dessert">средняя порция</button>
+                    <button class="filter-btn" data-kind="large" data-category="dessert">большая порция</button>
+                    <button class="filter-btn active" data-kind="all" data-category="dessert">все</button>
+                </div>
+                
+                <div class="dishes-grid" id="dessert-dishes">
+                    <!-- Карточки блюд будут созданы динамически -->
+                </div>
+            </section>
+                <h2>Супы</h2>
+                <div class="filters">
+                    <button class="filter-btn" data-kind="fish" data-category="soup">рыбный</button>
+                    <button class="filter-btn" data-kind="meat" data-category="soup">мясной</button>
+                    <button class="filter-btn" data-kind="veg" data-category="soup">вегетарианский</button>
+                    <button class="filter-btn active" data-kind="all" data-category="soup">все</button>
+                </div>
+                <div class="dishes-grid">
+                    <!-- Карточки супов будут созданы динамически -->
+                </div>
+            </section>
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
+
+        <section id="main-section" class="dishes-section">
+            <h2>Главные блюда</h2>
+            <div class="filters">
+                <button class="filter-btn" data-kind="fish" data-category="main">рыбное</button>
+                <button class="filter-btn" data-kind="meat" data-category="main">мясное</button>
+                <button class="filter-btn" data-kind="veg" data-category="main">вегетарианское</button>
+                <button class="filter-btn active" data-kind="all" data-category="main">все</button>
+            </div>
+            <div class="dishes-grid">
+                <!-- Карточки главных блюд будут созданы динамически -->
+            </div>
+        </section>
+
+        <section id="drink-section" class="dishes-section">
+            <h2>Напитки</h2>
+            <div class="filters">
+                <button class="filter-btn" data-kind="cold" data-category="drink">холодный</button>
+                <button class="filter-btn" data-kind="hot" data-category="drink">горячий</button>
+                <button class="filter-btn active" data-kind="all" data-category="drink">все</button>
+            </div>
+            <div class="dishes-grid">
+                <!-- Карточки напитков будут созданы динамически -->
+            </div>
+        </section>
+<<<<<<< HEAD
+        <section id="starter-section" class="dishes-section">
+            <h2>Салаты и стартеры</h2>
+=======
+        <!-- Блок с комбо-предложениями -->
+        <section id="combo-section" class="combo-section">
+            <h2>Готовые варианты ланча</h2>
+            <div class="combo-grid">
+                <!-- Классический ланч -->
+                <div class="combo-option">
+                    <h3>Классический</h3>
+                    <div class="combo-dishes">
+                        <div class="combo-dish">
+                            <img src="images/combo_soup_classic.jpg" alt="Куриный суп с лапшой">
+                            <p class="combo-dish-label">Куриный суп с лапшой</p>
+                        </div>
+                        <div class="combo-dish">
+                            <img src="images/combo_main_classic.jpg" alt="Курица терияки с рисом">
+                            <p class="combo-dish-label">Курица терияки с рисом</p>
+                        </div>
+                        <div class="combo-dish">
+                            <img src="images/combo_drink_classic.jpg" alt="Морс клюквенный">
+                            <p class="combo-dish-label">Морс клюквенный</p>
+                        </div>
+                    </div>
+                    <p class="combo-price">780 руб.</p>
+                    <p class="combo-description">Сытный традиционный обед</p>
+                </div>
+        
+                <!-- Рыбный ланч -->
+                <div class="combo-option">
+                    <h3>Рыбный</h3>
+                    <div class="combo-dishes">
+                        <div class="combo-dish">
+                            <img src="images/combo_soup_fish.jpg" alt="Уха по-фински">
+                            <p class="combo-dish-label">Уха по-фински</p>
+                        </div>
+                        <div class="combo-dish">
+                            <img src="images/combo_main_fish.jpg" alt="Лосось на гриле">
+                            <p class="combo-dish-label">Лосось на гриле</p>
+                        </div>
+                        <div class="combo-dish">
+                            <img src="images/combo_drink_fish.jpg" alt="Апельсиновый сок">
+                            <p class="combo-dish-label">Апельсиновый сок</p>
+                        </div>
+                    </div>
+                    <p class="combo-price">930 руб.</p>
+                    <p class="combo-description">Для любителей морепродуктов</p>
+                </div>
+        
+                <!-- Вегетарианский ланч -->
+                <div class="combo-option">
+                    <h3>Вегетарианский</h3>
+                    <div class="combo-dishes">
+                        <div class="combo-dish">
+                            <img src="images/combo_soup_veg.jpg" alt="Грибной крем-суп">
+                            <p class="combo-dish-label">Грибной крем-суп</p>
+                        </div>
+                        <div class="combo-dish">
+                            <img src="images/combo_main_veg.jpg" alt="Овощное рагу">
+                            <p class="combo-dish-label">Овощное рагу</p>
+                        </div>
+                        <div class="combo-dish">
+                            <img src="images/combo_drink_veg.jpg" alt="Лимонад мятный">
+                            <p class="combo-dish-label">Лимонад мятный</p>
+                        </div>
+                    </div>
+                    <p class="combo-price">730 руб.</p>
+                    <p class="combo-description">Без мяса, но очень вкусно</p>
+                </div>
+            </div>
+        
+            <div class="dessert-note">
+                <p><strong>Десерты можно добавить к любому ланчу за дополнительную плату.</strong></p>
+                <p class="small-text">Выберите десерт из раздела выше и добавьте к заказу</p>
+            </div>
+        </section>
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
+
+            <!-- Блок фильтров для салатов -->
+            <div class="filters">
+                <button class="filter-btn" data-kind="fish" data-category="starter">рыбный</button>
+                <button class="filter-btn" data-kind="meat" data-category="starter">мясной</button>
+                <button class="filter-btn" data-kind="veg" data-category="starter">вегетарианский</button>
+                <button class="filter-btn active" data-kind="all" data-category="starter">все</button>
+            </div>
+
+            <div class="dishes-grid" id="starter-dishes">
+                <!-- Карточки блюд будут созданы динамически -->
+            </div>
+        </section>
+
+        <section id="dessert-section" class="dishes-section">
+            <h2>Десерты</h2>
+
+            <!-- Блок фильтров для десертов -->
+            <div class="filters">
+                <button class="filter-btn" data-kind="small" data-category="dessert">маленькая порция</button>
+                <button class="filter-btn" data-kind="medium" data-category="dessert">средняя порция</button>
+                <button class="filter-btn" data-kind="large" data-category="dessert">большая порция</button>
+                <button class="filter-btn active" data-kind="all" data-category="dessert">все</button>
+            </div>
+
+            <div class="dishes-grid" id="dessert-dishes">
+                <!-- Карточки блюд будут созданы динамически -->
+            </div>
+        </section>
+        <!-- Раздел "Ваш заказ" (создается JavaScript) -->
+        <div id="order-summary"></div>
+
+        <!-- Форма оформления заказа -->
+        <section class="order-form-section">
+            <h2>Оформление заказа</h2>
+            <form id="order-form" action="https://httpbin.org/post" method="post">
+                <!-- Скрытые поля для выбранных блюд -->
+                <input type="hidden" id="soup-input" name="soup">
+                <input type="hidden" id="main-input" name="main">
+                <input type="hidden" id="starter-input" name="starter">
+                <input type="hidden" id="drink-input" name="drink">
+                <input type="hidden" id="dessert-input" name="dessert">
+
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="customer-name">Ваше имя *</label>
+                        <input type="text" id="customer-name" name="customer_name" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="customer-phone">Телефон *</label>
+                        <input type="tel" id="customer-phone" name="customer_phone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="delivery-address">Адрес доставки *</label>
+                    <input type="text" id="delivery-address" name="delivery_address" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="delivery-time">Время доставки</label>
+                    <select id="delivery-time" name="delivery_time">
+                        <option value="12:00-13:00">12:00 - 13:00</option>
+                        <option value="13:00-14:00" selected>13:00 - 14:00</option>
+                        <option value="14:00-15:00">14:00 - 15:00</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Комментарий к заказу</label>
+                    <textarea id="comments" name="comments" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="submit-order-btn">Оформить заказ</button>
+            </form>
+        </section>
+    </main>
+
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <h3>Контакты</h3>
+                    <p>Адрес: г. Москва, ул. Промышленная, д. 15</p>
+                    <p>Телефон: <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                    <p>Email: <a href="mailto:info@lunchexpress.ru">info@lunchexpress.ru</a></p>
+                    <p>Время работы: Пн-Пт с 9:00 до 18:00</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключение JavaScript -->
+<<<<<<< HEAD
+    <script src="js/dishes.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/order.js"></script>
+
+
+
+
+=======
+    <script src="js/dishes.js"></script>    
+    <script src="js/filters.js"></script>   
+    <script src="js/order.js"></script>     
+    <script src="js/validation.js"></script>
+>>>>>>> 6a208735737f130525a69de84ac6789c3e0b0be0
+</body>
+</html>
