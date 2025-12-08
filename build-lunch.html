@@ -329,9 +329,20 @@
         </div>
     </footer>
 
-    <script src="js/dishes.js"></script>
+
+    <script src="js/api.js"></script>
     <script src="js/filters.js"></script>
     <script src="js/order.js"></script>
     <script src="js/validation.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDishes().then(dishes => {
+                console.log('Всего загружено блюд:', dishes.length);
+            }).catch(error => {
+                console.error('Ошибка при загрузке блюд:', error);
+            });
+        });
+    </script>
 </body>
 </html>
