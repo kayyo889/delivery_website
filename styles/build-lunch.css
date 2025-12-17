@@ -187,17 +187,6 @@
     color: #333;
     width: 100%;
 }
-
-.combo-card:hover .combo-select-btn {
-    background-color: #f1eee9;
-    color: #333;
-}
-
-.combo-card:hover .combo-select-btn:hover {
-    background-color: tomato;
-    color: white;
-}
-
 .combo-select-btn:hover {
     background-color: tomato;
     color: white;
