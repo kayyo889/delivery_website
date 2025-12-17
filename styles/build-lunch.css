@@ -397,3 +397,39 @@
 .dish-card.selected .selected-indicator {
     display: flex;
 }
+/* Плавная анимация для всех карточек */
+.dish-card, .combo-card {
+    animation: cardAppear 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes cardAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Задержка для анимации карточек по порядку */
+.dish-card:nth-child(1) { animation-delay: 0.1s; }
+.dish-card:nth-child(2) { animation-delay: 0.2s; }
+.dish-card:nth-child(3) { animation-delay: 0.3s; }
+.dish-card:nth-child(4) { animation-delay: 0.4s; }
+.dish-card:nth-child(5) { animation-delay: 0.5s; }
+.dish-card:nth-child(6) { animation-delay: 0.6s; }
+
+.combo-card:nth-child(1) { animation-delay: 0.7s; }
+.combo-card:nth-child(2) { animation-delay: 0.8s; }
+.combo-card:nth-child(3) { animation-delay: 0.9s; }
+
+/* Эффект пульсации для выбранной карточки */
+@keyframes pulse {
+    0% { box-shadow: 0 5px 15px rgba(255, 99, 71, 0.4); }
+    50% { box-shadow: 0 5px 25px rgba(255, 99, 71, 0.6); }
+    100% { box-shadow: 0 5px 15px rgba(255, 99, 71, 0.4); }
+}
+
+.dish-card.selected, .combo-card.selected {
+    animation: pulse 2s infinite ease-in-out;
+}
