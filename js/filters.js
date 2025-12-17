@@ -137,7 +137,27 @@ function selectDish(dish) {
         selectedCard.classList.add('selected');
         selectedCard.querySelector('.add-btn').textContent = '✓ Добавлено';
     }
+    // Находим все карточки этой категории
+    const categoryCards = document.querySelectorAll(`[data-category="${dish.category}"]`);
 
+    // Убираем класс selected со всех карточек этой категории
+    categoryCards.forEach(card => {
+        card.classList.remove('selected');
+        const btn = card.querySelector('.add-btn');
+        if (btn) {
+            btn.textContent = 'Добавить';
+        }
+    });
+
+    // Добавляем класс selected к выбранной карточке
+    const dishCard = event.target.closest('.dish-card');
+    if (dishCard) {
+        dishCard.classList.add('selected');
+        const btn = dishCard.querySelector('.add-btn');
+        if (btn) {
+            btn.textContent = '✓ Добавлено';
+        }
+    }
     // Сохраняем выбор
     selectedDishes[dish.category] = dish;
 
@@ -150,6 +170,7 @@ function selectDish(dish) {
     if (window.highlightSelectedCombo) {
         setTimeout(() => window.highlightSelectedCombo(), 100);
     }
+
 }
 
 // Функция инициализации фильтров
