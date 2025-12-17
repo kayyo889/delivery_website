@@ -1,7 +1,5 @@
-// filters.js - ОЧИЩЕННАЯ ВЕРСИЯ
-
-// ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
-let dishes = []; // Будет заполнен через API
+window.selectDish = selectDish;
+let dishes = [];
 let selectedDishes = {
     soup: null,
     main: null,
@@ -10,7 +8,6 @@ let selectedDishes = {
     dessert: null
 };
 
-// ========== ФУНКЦИИ ДЛЯ СООБЩЕНИЙ ==========
 function showLoadingMessage(text) {
     const loadingDiv = document.createElement('div');
     loadingDiv.id = 'loading-message';
@@ -147,6 +144,9 @@ function selectDish(dish) {
     // Обновляем отображение заказа
     updateOrderDisplay();
     updateHiddenFields();
+     if (window.displayComboInfo) {
+        setTimeout(() => window.displayComboInfo(), 100);
+    }
 }
 
 // Функция инициализации фильтров
