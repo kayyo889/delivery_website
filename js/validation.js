@@ -1,12 +1,11 @@
-// === validation.js - ОБНОВЛЕННАЯ ВЕРСИЯ ===
-
-// Проверяем и объявляем глобальные переменные, если они не существуют
 if (typeof dishes === 'undefined') {
-    var dishes = [];
+    console.warn('dishes не определена, создаю пустой массив');
+    dishes = [];
 }
 
 if (typeof selectedDishes === 'undefined') {
-    var selectedDishes = {
+    console.warn('selectedDishes не определена, создаю пустой объект');
+    selectedDishes = {
         soup: null,
         main: null,
         starter: null,
