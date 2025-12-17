@@ -449,7 +449,7 @@ function selectCombo(comboKey) {
         window.selectDish(drinkDish);
     }
 
-     // Обновляем выделение комбо
+    // Обновляем выделение комбо
     setTimeout(() => {
         highlightSelectedCombo();
     }, 100);
