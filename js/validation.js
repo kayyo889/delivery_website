@@ -412,19 +412,19 @@ function selectCombo(comboKey) {
         window.selectDish(drinkDish);
     }
 
-    // Обновляем отображение комбо
-    displayComboInfo();
-
-    // Обновляем цену заказа
-    updateOrderPrice(combo.price, {
+    // Создаем объект comboCheck для передачи в updateOrderPrice
+    const comboCheck = {
         isValid: true,
         comboName: combo.name,
         comboDescription: combo.description,
         comboPrice: combo.price,
         comboKey: comboKey
-    });
+    };
 
-    // Показываем уведомление с реальными значениями
+    // Обновляем цену
+    updateOrderPrice(combo.price, comboCheck);
+
+    // Показываем уведомление
     setTimeout(() => {
         showNotification('success');
     }, 300);
