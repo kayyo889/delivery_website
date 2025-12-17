@@ -299,3 +299,101 @@
         padding: 20px;
     }
 }
+/* Обновляем стили для карточек блюд */
+.dish-card {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+    border-radius: 35px;
+    cursor: pointer;
+    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+    background-color: white;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.dish-card:hover {
+    border-color: tomato;
+    transform: translateY(-5px);
+}
+
+/* Эффект для выбранной карточки */
+.dish-card.selected {
+    border-color: tomato;
+    background: linear-gradient(135deg, #fff8f8, #fff0f0);
+    transform: translateY(-3px);
+}
+
+/* Галочка на выбранной карточке */
+.dish-card.selected::before {
+    content: '✓';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: tomato;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Эффект для карточек при наведении */
+.dish-card:hover .add-btn {
+    background-color: tomato;
+    color: white;
+}
+
+/* Кнопка в выбранной карточке */
+.dish-card.selected .add-btn {
+    background-color: tomato;
+    color: white;
+}
+
+/* Меняем текст кнопки в выбранной карточке */
+.dish-card.selected .add-btn {
+    content: '✓ Добавлено';
+}
+
+/* Эффект для выбранной карточки при наведении */
+.dish-card.selected:hover {
+    box-shadow: 0 15px 35px rgba(255, 99, 71, 0.2);
+    transform: translateY(-5px);
+}
+
+.dish-card img {
+    width: 100%;
+    border-radius: 35px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.dish-card:hover img {
+    transform: scale(1.03);
+}
+
+/* Индикатор выбранного блюда в правом верхнем углу */
+.dish-card .selected-indicator {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: tomato;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.dish-card.selected .selected-indicator {
+    display: flex;
+}
