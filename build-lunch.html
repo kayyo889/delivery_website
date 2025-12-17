@@ -270,10 +270,14 @@
     <script src="js/filters.js"></script>
     <script src="js/validation.js"></script>
     <script>
-
         document.addEventListener('DOMContentLoaded', function() {
             loadDishes().then(dishes => {
                 console.log('Всего загружено блюд:', dishes.length);
+
+                // Вызываем отображение комбо после загрузки блюд
+                if (window.displayComboInfo) {
+                    setTimeout(window.displayComboInfo, 300);
+                }
             }).catch(error => {
                 console.error('Ошибка при загрузке блюд:', error);
             });

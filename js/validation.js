@@ -5,7 +5,6 @@ if (typeof dishes === 'undefined') {
     console.warn('dishes не определена, создаю пустой массив');
     dishes = [];
 }
-
 if (typeof selectedDishes === 'undefined') {
     console.warn('selectedDishes не определена, создаю пустой объект');
     selectedDishes = {
@@ -471,7 +470,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 1000);
 });
-
+document.addEventListener('DOMContentLoaded', function() {
+    // Ждем загрузки блюд
+    const checkDishes = setInterval(() => {
+        if (dishes && dishes.length > 0) {
+            displayComboInfo();
+            clearInterval(checkDishes);
+        }
+    }, 500);
+});
 // Экспортируем функции для использования в других файлах
 window.displayComboInfo = displayComboInfo;
 window.selectCombo = selectCombo;

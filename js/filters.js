@@ -404,4 +404,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         hideLoadingMessage();
         showErrorMessage('Не удалось загрузить меню. Пожалуйста, проверьте подключение к интернету и обновите страницу.');
     }
+        loadDishes().then(loadedDishes => {
+        dishes = loadedDishes;
+        createDishCards(dishes);
+        updateOrderDisplay();
+
+        // Вызываем отображение комбо
+        if (window.displayComboInfo) {
+            setTimeout(window.displayComboInfo, 500);
+        }
+        });
 });
