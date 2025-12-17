@@ -221,17 +221,6 @@
     color: white;
 }
 
-.dessert-note {
-    background: linear-gradient(135deg, #fff8e1, #ffecb3);
-    border: 2px solid #ffd54f;
-    border-radius: 20px;
-    padding: 20px 25px;
-    margin-top: 30px;
-    text-align: center;
-    grid-column: 1 / -1;
-    box-shadow: 0 5px 15px rgba(255, 213, 79, 0.2);
-}
-
 /* Адаптивность */
 @media (max-width: 800px) {
     .combo-container {
