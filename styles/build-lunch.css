@@ -1,90 +1,4 @@
-.dishes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 40px;
-}
-
-.dish-card {
-    display: flex;
-    flex-direction: column;
-    padding: 30px 40px;
-    border-radius: 35px;
-    cursor: pointer;
-    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
-    background-color: white;
-    transition: all 0.3s ease;
-}
-
-.dish-card :last-child {
-    margin-top: auto;
-}
-
-.dish-card:hover {
-    border: 2px solid tomato;
-}
-
-.dish-card:hover .add-btn {
-    background-color: tomato;
-    color: white;
-}
-
-.dish-card img {
-    width: 100%;
-    border-radius: 35px;
-    margin-bottom: 15px;
-}
-
-.dish-price {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.dish-name {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
-.dish-weight,
-.dish-volume {
-    color: #666;
-    margin-bottom: 15px;
-}
-
-.add-btn {
-    background-color: #f1eee9;
-    padding: 10px 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: all 0.3s ease;
-}
-
-/* Адаптивность для страницы "Собрать ланч" */
-@media (max-width: 800px) {
-    .dishes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .dish-card {
-        padding: 20px 25px;
-    }
-}
-
-@media (max-width: 600px) {
-    .dishes-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .dish-card {
-        padding: 15px 20px;
-    }
-}
+/* === КОМБО СТИЛИ === */
 
 #comboInfo {
     margin: 40px 0;
@@ -93,7 +7,6 @@
     border-radius: 15px;
 }
 
-/* Убираем дублирующиеся стили, оставляем только эти: */
 .combo-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -118,11 +31,17 @@
     transform: translateY(-5px);
 }
 
+.combo-card.selected {
+    border-color: tomato;
+    background: linear-gradient(135deg, #fff8f8, #fff0f0);
+}
+
 .combo-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    min-height: 40px; /* Фиксируем высоту заголовка */
 }
 
 .combo-header h4 {
@@ -130,15 +49,28 @@
     color: #333;
     font-size: 20px;
     font-weight: 600;
+    flex: 1;
+    margin-right: 15px;
 }
 
+/* ФИКС ДЛЯ ЦЕНЫ - всегда в одну строку */
 .combo-price-badge {
     background: tomato;
     color: white;
-    padding: 8px 20px;
+    padding: 8px 15px;
     border-radius: 50px;
     font-weight: 600;
     font-size: 18px;
+    min-width: 100px; /* Фиксированная ширина */
+    text-align: center;
+    white-space: nowrap; /* Запрет переноса */
+    display: inline-block;
+    flex-shrink: 0; /* Не сжимается */
+}
+
+.combo-card.selected .combo-price-badge {
+    background: #e64a19;
+    box-shadow: 0 4px 10px rgba(230, 74, 25, 0.3);
 }
 
 .combo-desc {
@@ -146,10 +78,12 @@
     margin-bottom: 20px;
     font-size: 15px;
     line-height: 1.5;
+    min-height: 45px; /* Фиксируем высоту описания */
 }
 
 .combo-dishes-list {
     margin-bottom: 25px;
+    flex-grow: 1;
 }
 
 .combo-dish-item {
@@ -166,6 +100,7 @@
     font-size: 20px;
     width: 30px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .combo-dish-item span:last-child {
@@ -173,7 +108,7 @@
     color: #444;
 }
 
-/* Стиль кнопки КАК У БЛЮД */
+/* Кнопка комбо */
 .combo-select-btn {
     background-color: #f1eee9;
     padding: 10px 30px;
@@ -187,12 +122,17 @@
     color: #333;
     width: 100%;
 }
+
 .combo-select-btn:hover {
     background-color: tomato;
     color: white;
 }
 
-/* Информационная плашка (желтая) */
+.combo-card.selected .combo-select-btn {
+    background-color: tomato;
+    color: white;
+}
+
 .dessert-note {
     background: linear-gradient(135deg, #fff8e1, #ffecb3);
     border: 2px solid #ffd54f;
@@ -204,23 +144,7 @@
     box-shadow: 0 5px 15px rgba(255, 213, 79, 0.2);
 }
 
-.dessert-note p {
-    margin: 10px 0;
-    color: #5d4037;
-    font-size: 16px;
-}
-
-.dessert-note .small-text {
-    font-size: 14px;
-    color: #8d6e63;
-    font-style: italic;
-}
-
-.dessert-note strong {
-    color: #e65100;
-}
-
-/* Адаптивность для комбо */
+/* Адаптивность */
 @media (max-width: 800px) {
     .combo-container {
         grid-template-columns: repeat(2, 1fr);
@@ -234,5 +158,11 @@
 
     .combo-card {
         padding: 20px;
+    }
+
+    .combo-price-badge {
+        min-width: 85px;
+        font-size: 16px;
+        padding: 6px 12px;
     }
 }
