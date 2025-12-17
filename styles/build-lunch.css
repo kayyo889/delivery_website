@@ -1,3 +1,91 @@
+.dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.dish-card {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+    border-radius: 35px;
+    cursor: pointer;
+    filter: drop-shadow(17px 19px 24px rgba(0, 0, 0, 0.13));
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+.dish-card :last-child {
+    margin-top: auto;
+}
+
+.dish-card:hover {
+    border: 2px solid tomato;
+}
+
+.dish-card:hover .add-btn {
+    background-color: tomato;
+    color: white;
+}
+
+.dish-card img {
+    width: 100%;
+    border-radius: 35px;
+    margin-bottom: 15px;
+}
+
+.dish-price {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.dish-name {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.dish-weight,
+.dish-volume {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.add-btn {
+    background-color: #f1eee9;
+    padding: 10px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Адаптивность для страницы "Собрать ланч" */
+@media (max-width: 800px) {
+    .dishes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dish-card {
+        padding: 20px 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .dishes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dish-card {
+        padding: 15px 20px;
+    }
+}
+
 /* === КОМБО СТИЛИ === */
 
 #comboInfo {
@@ -164,5 +252,50 @@
         min-width: 85px;
         font-size: 16px;
         padding: 6px 12px;
+    }
+}
+
+/* Информационная плашка (желтая) */
+.dessert-note {
+    background: linear-gradient(135deg, #fff8e1, #ffecb3);
+    border: 2px solid #ffd54f;
+    border-radius: 20px;
+    padding: 20px 25px;
+    margin-top: 30px;
+    text-align: center;
+    grid-column: 1 / -1;
+    box-shadow: 0 5px 15px rgba(255, 213, 79, 0.2);
+}
+
+.dessert-note p {
+    margin: 10px 0;
+    color: #5d4037;
+    font-size: 16px;
+}
+
+.dessert-note .small-text {
+    font-size: 14px;
+    color: #8d6e63;
+    font-style: italic;
+}
+
+.dessert-note strong {
+    color: #e65100;
+}
+
+/* Адаптивность для комбо */
+@media (max-width: 800px) {
+    .combo-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .combo-container {
+        grid-template-columns: 1fr;
+    }
+
+    .combo-card {
+        padding: 20px;
     }
 }
