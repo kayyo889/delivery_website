@@ -408,8 +408,7 @@ function highlightSelectedCombo() {
         const btn = card.querySelector('.combo-select-btn');
         if (btn) {
             btn.textContent = 'Выбрать этот набор';
-            btn.style.backgroundColor = '';
-            btn.style.color = '';
+
         }
     });
 
@@ -420,8 +419,7 @@ function highlightSelectedCombo() {
             const btn = selectedCard.querySelector('.combo-select-btn');
             if (btn) {
                 btn.textContent = '✓ Выбрано';
-                btn.style.backgroundColor = 'tomato';
-                btn.style.color = 'white';
+
             }
         }
     }

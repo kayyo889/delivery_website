@@ -61,7 +61,7 @@
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: auto;
     transition: all 0.3s ease;
 }
 
@@ -352,8 +352,8 @@
 
 /* Кнопка в выбранной карточке */
 .dish-card.selected .add-btn {
-    background-color: tomato;
-    color: white;
+    background-color: tomato !important;
+    color: white !important;
 }
 
 /* Меняем текст кнопки в выбранной карточке */
