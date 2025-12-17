@@ -65,7 +65,8 @@ function createDishCards() {
         starter: dishes.filter(dish => dish.category === 'starter'),
         dessert: dishes.filter(dish => dish.category === 'dessert')
     };
-
+    dishCard.dataset.id = dish.id || dish.keyword; // добавьте эту строку
+    dishCard.dataset.category = dish.category;
     // Создаем карточки для каждой категории
     Object.keys(categories).forEach(category => {
         let container;
@@ -121,7 +122,31 @@ function createDishCards() {
 
     console.log('Карточки блюд созданы');
 }
+// Функция для обновления состояния всех карточек блюд
+function updateDishCards() {
+    const dishCards = document.querySelectorAll('.dish-card');
 
+    dishCards.forEach(card => {
+        const dishId = card.dataset.id || card.dataset.keyword;
+        const category = card.dataset.category;
+
+        // Проверяем, выбрано ли это блюдо
+        if (selectedDishes[category] &&
+            selectedDishes[category].id === dishId) {
+            card.classList.add('selected');
+            const btn = card.querySelector('.add-btn');
+            if (btn) {
+                btn.textContent = '✓ Добавлено';
+            }
+        } else {
+            card.classList.remove('selected');
+            const btn = card.querySelector('.add-btn');
+            if (btn) {
+                btn.textContent = 'Добавить';
+            }
+        }
+    });
+}
 // Функция выбора блюда
 function selectDish(dish) {
     console.log('Выбрано блюдо:', dish.name);
@@ -170,7 +195,7 @@ function selectDish(dish) {
     if (window.highlightSelectedCombo) {
         setTimeout(() => window.highlightSelectedCombo(), 100);
     }
-
+    updateDishCards();
 }
 
 // Функция инициализации фильтров
