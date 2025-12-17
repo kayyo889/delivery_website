@@ -137,12 +137,16 @@ function updateDishCards() {
             const btn = card.querySelector('.add-btn');
             if (btn) {
                 btn.textContent = '✓ Добавлено';
+                 btn.style.backgroundColor = 'tomato';
+                 btn.style.color = 'white';
             }
         } else {
             card.classList.remove('selected');
             const btn = card.querySelector('.add-btn');
             if (btn) {
                 btn.textContent = 'Добавить';
+                btn.style.backgroundColor = '';
+                btn.style.color = '';
             }
         }
     });
