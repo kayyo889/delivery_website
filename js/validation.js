@@ -342,10 +342,13 @@ function updateComboHiddenField(comboCheck) {
         return;
     }
 
+    // Очищаем предыдущие комбо
     comboContainer.innerHTML = '';
 
+    // Всегда показываем комбо
     comboInfo.style.display = 'block';
 
+    // Создаем карточки для всех комбо
     Object.entries(combos).forEach(([comboKey, combo]) => {
         const comboCard = document.createElement('div');
         comboCard.className = 'combo-card';
@@ -374,7 +377,6 @@ function updateComboHiddenField(comboCheck) {
             <button class="combo-select-btn">Выбрать этот набор</button>
         `;
 
-        // Добавляем обработчик для кнопки выбора комбо
         const selectBtn = comboCard.querySelector('.combo-select-btn');
         selectBtn.addEventListener('click', () => {
             selectCombo(comboKey);
@@ -382,6 +384,15 @@ function updateComboHiddenField(comboCheck) {
 
         comboContainer.appendChild(comboCard);
     });
+
+    // Добавляем информационную плашку
+    const dessertNote = document.createElement('div');
+    dessertNote.className = 'dessert-note';
+    dessertNote.innerHTML = `
+        <p><strong>Салаты и десерты можно добавить к любому ланчу за дополнительную плату.</strong></p>
+        <p class="small-text">Выберите салат и/или десерт из разделов выше и добавьте к заказу</p>
+    `;
+    comboContainer.appendChild(dessertNote);
 }
 
 // Получение названия блюда по keyword
