@@ -140,7 +140,9 @@ function selectDish(dish) {
 
     // Сохраняем выбор
     selectedDishes[dish.category] = dish;
-
+    if (window.highlightSelectedCombo) {
+        setTimeout(() => window.highlightSelectedCombo(), 100);
+    }
     // Обновляем отображение заказа
     updateOrderDisplay();
     updateHiddenFields();
