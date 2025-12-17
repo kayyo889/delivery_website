@@ -504,5 +504,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
 });
 // Экспортируем функции для использования в других файлах
-window.displayComboInfo = displayComboInfo;
+window.highlightSelectedCombo = highlightSelectedCombo;
 window.selectCombo = selectCombo;
