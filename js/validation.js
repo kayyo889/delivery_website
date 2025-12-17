@@ -341,8 +341,6 @@ function updateComboHiddenField(comboCheck) {
 
     comboInfo.style.display = 'block';
 
-    const selectedCount = Object.values(selectedDishes).filter(dish => dish !== null).length;
-
     Object.entries(combos).forEach(([comboKey, combo]) => {
         const comboCard = document.createElement('div');
         comboCard.className = 'combo-card';
