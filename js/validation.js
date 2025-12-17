@@ -1,4 +1,4 @@
-// validation.js - ОБНОВЛЕННЫЕ КОМБО
+// validation.js - ОБНОВЛЕННЫЕ КОМБО (ИСПРАВЛЕННАЯ ВЕРСИЯ)
 
 // Проверяем и объявляем глобальные переменные
 if (typeof dishes === 'undefined') {
@@ -34,7 +34,7 @@ const combos = {
         main: "kotlety-s-pyure",      // Котлеты из курицы с картофельным пюре
         drink: "apelsinoviy",         // Апельсиновый сок
         description: "Традиционный вариант для настоящих гурманов",
-        price: 645  // 330 + 225 + 120 = 675? Но пусть будет 645 как в старом
+        price: 645
     },
     fish: {
         name: "Рыбный ланч",
@@ -42,7 +42,7 @@ const combos = {
         main: "shrimppasta",          // Паста с креветками
         drink: "morkovniy",           // Морковный сок
         description: "Для любителей морских деликатесов",
-        price: 720  // 270 + 340 + 110 = 720
+        price: 720
     },
     vegetarian: {
         name: "Вегетарианский ланч",
@@ -50,7 +50,7 @@ const combos = {
         main: "pizza",                // Пицца Маргарита
         drink: "greentea",            // Зеленый чай
         description: "Легкий и полезный обед без мяса",
-        price: 745  // 195 + 450 + 100 = 745
+        price: 745
     },
     premium: {
         name: "Премиум ланч",
@@ -58,7 +58,7 @@ const combos = {
         main: "lazanya",              // Лазанья
         drink: "cappuccino",          // Капучино
         description: "Изысканный обед для особых случаев",
-        price: 1205 // 650 + 385 + 180 = 1215, но округлим
+        price: 1205
     },
     budget: {
         name: "Бюджетный ланч",
@@ -66,7 +66,7 @@ const combos = {
         main: "zharenaya-kartoshka",  // Жареная картошка с грибами
         drink: "tea",                 // Черный чай
         description: "Экономный вариант без потери качества",
-        price: 365  // 185 + 150 + 90 = 425, но сделаем 365
+        price: 365
     }
 };
 
@@ -317,53 +317,68 @@ function updateComboHiddenField(comboCheck) {
     comboInput.value = comboCheck ? comboCheck.comboKey : '';
 }
 
-// Функция для отображения информации о комбо на странице
-function displayComboInfo() {
-    // Создаем блок с информацией о комбо, если его нет
-    const comboInfoSection = document.getElementById('combo-info');
-    if (!comboInfoSection) {
-        const section = document.createElement('section');
-        section.id = 'combo-info';
-        section.className = 'menu-section';
-        section.innerHTML = `
-            <h2>Наши популярные комбо-ланчи</h2>
-            <div class="combos-grid">
-                ${Object.values(combos).map(combo => `
-                    <div class="combo-card" data-combo="${Object.keys(combos).find(key => combos[key] === combo)}">
-                        <h3>${combo.name}</h3>
-                        <p class="combo-price">${combo.price} руб.</p>
-                        <p class="combo-description">${combo.description}</p>
-                        <div class="combo-dishes">
-                            <p><strong>Состав:</strong></p>
-                            <p>• ${getDishNameByKeyword(combo.soup)}</p>
-                            <p>• ${getDishNameByKeyword(combo.main)}</p>
-                            <p>• ${getDishNameByKeyword(combo.drink)}</p>
-                        </div>
-                        <button class="select-combo-btn">Выбрать этот комбо</button>
-                    </div>
-                `).join('')}
+    function displayComboInfo() {
+    // Проверяем, загружены ли блюда
+    if (!dishes || dishes.length === 0) {
+        console.warn('Блюда еще не загружены, откладываю отображение комбо');
+        setTimeout(displayComboInfo, 500);
+        return;
+    }
+
+    const comboContainer = document.getElementById('comboContainer');
+    if (!comboContainer) {
+        console.error('Не найден элемент с id="comboContainer"');
+        return;
+    }
+
+    const comboInfo = document.getElementById('comboInfo');
+    if (!comboInfo) {
+        console.error('Не найден элемент с id="comboInfo"');
+        return;
+    }
+
+    comboContainer.innerHTML = '';
+
+    comboInfo.style.display = 'block';
+
+    const selectedCount = Object.values(selectedDishes).filter(dish => dish !== null).length;
+
+    Object.entries(combos).forEach(([comboKey, combo]) => {
+        const comboCard = document.createElement('div');
+        comboCard.className = 'combo-card';
+        comboCard.dataset.combo = comboKey;
+
+        comboCard.innerHTML = `
+            <div class="combo-header">
+                <h4>${combo.name}</h4>
+                <span class="combo-price-badge">${combo.price} руб.</span>
             </div>
+            <p class="combo-desc">${combo.description}</p>
+            <div class="combo-dishes-list">
+                <div class="combo-dish-item">
+                    <span>🍲</span>
+                    <span>${getDishNameByKeyword(combo.soup)}</span>
+                </div>
+                <div class="combo-dish-item">
+                    <span>🍖</span>
+                    <span>${getDishNameByKeyword(combo.main)}</span>
+                </div>
+                <div class="combo-dish-item">
+                    <span>🥤</span>
+                    <span>${getDishNameByKeyword(combo.drink)}</span>
+                </div>
+            </div>
+            <button class="combo-select-btn">Выбрать этот набор</button>
         `;
 
-        const main = document.querySelector('main');
-        if (main) {
-            // Вставляем перед формой заказа
-            const orderForm = document.getElementById('order-form');
-            if (orderForm) {
-                main.insertBefore(section, orderForm);
-            } else {
-                main.appendChild(section);
-            }
-        }
-
-        // Добавляем обработчики для кнопок выбора комбо
-        document.querySelectorAll('.select-combo-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const comboKey = this.closest('.combo-card').dataset.combo;
-                selectCombo(comboKey);
-            });
+        // Добавляем обработчик для кнопки выбора комбо
+        const selectBtn = comboCard.querySelector('.combo-select-btn');
+        selectBtn.addEventListener('click', () => {
+            selectCombo(comboKey);
         });
-    }
+
+        comboContainer.appendChild(comboCard);
+    });
 }
 
 // Получение названия блюда по keyword
@@ -384,32 +399,33 @@ function selectCombo(comboKey) {
     const mainDish = dishes.find(d => d.keyword === combo.main);
     const drinkDish = dishes.find(d => d.keyword === combo.drink);
 
-    if (soupDish) selectDish(soupDish);
-    if (mainDish) selectDish(mainDish);
-    if (drinkDish) selectDish(drinkDish);
+    // Используем глобальную функцию selectDish из filters.js
+    if (soupDish && window.selectDish) {
+        window.selectDish(soupDish);
+    }
+    if (mainDish && window.selectDish) {
+        window.selectDish(mainDish);
+    }
+    if (drinkDish && window.selectDish) {
+        window.selectDish(drinkDish);
+    }
+
+    // Обновляем отображение комбо
+    displayComboInfo();
 
     // Показываем уведомление
-    showNotification('success');
+    setTimeout(() => {
+        showNotification('success');
+    }, 300);
 }
 
-// Функция selectDish должна быть доступна (определена в filters.js)
-// Если нет, добавляем её здесь
-if (typeof selectDish === 'undefined') {
-    console.warn('Функция selectDish не определена, создаю локальную');
-    function selectDish(dish) {
-        // Простая реализация, если нет основной
+// Проверяем и создаем глобальную ссылку на selectDish, если она не существует
+if (typeof window.selectDish === 'undefined') {
+    console.warn('window.selectDish не определена, создаю заглушку');
+    window.selectDish = function(dish) {
         selectedDishes[dish.category] = dish;
-
-        // Обновляем отображение
-        if (typeof updateOrderDisplay === 'function') {
-            updateOrderDisplay();
-        }
-        if (typeof updateHiddenFields === 'function') {
-            updateHiddenFields();
-        }
-
-        console.log(`Выбрано блюдо: ${dish.name}`);
-    }
+        console.log(`Заглушка: Выбрано блюдо ${dish.name} в категории ${dish.category}`);
+    };
 }
 
 // Инициализация при загрузке
@@ -418,9 +434,22 @@ document.addEventListener('DOMContentLoaded', function() {
     initValidation();
 
     // Отображаем информацию о комбо после загрузки блюд
+    // Первый запуск через 1 секунду, потом ждем загрузки dishes
     setTimeout(() => {
         if (dishes && dishes.length > 0) {
             displayComboInfo();
+        } else {
+            // Проверяем каждые 500мс, пока не загрузятся блюда
+            const checkInterval = setInterval(() => {
+                if (dishes && dishes.length > 0) {
+                    displayComboInfo();
+                    clearInterval(checkInterval);
+                }
+            }, 500);
         }
     }, 1000);
 });
+
+// Экспортируем функции для использования в других файлах
+window.displayComboInfo = displayComboInfo;
+window.selectCombo = selectCombo;

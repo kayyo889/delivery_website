@@ -196,79 +196,16 @@
             <div class="dishes-grid" id="dessert-dishes">
             </div>
         </section>
-        <!-- Блок с комбо-предложениями -->
-        <section id="combo-section" class="combo-section">
-            <h2>Готовые варианты ланча</h2>
-            <div class="combo-grid">
-                <!-- Классический ланч -->
-                <div class="combo-option">
-                    <h3>Классический</h3>
-                    <div class="combo-dishes">
-                        <div class="combo-dish">
-                            <img src="images/soup1.jpg" alt="Куриный суп с лапшой">
-                            <p class="combo-dish-label">Куриный суп с лапшой</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/main1.jpg" alt="Курица терияки с рисом">
-                            <p class="combo-dish-label">Курица терияки с рисом</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/drink1.jpg" alt="Морс клюквенный">
-                            <p class="combo-dish-label">Морс клюквенный</p>
-                        </div>
-                    </div>
-                    <p class="combo-price">780 руб.</p>
-                    <p class="combo-description">Сытный традиционный обед</p>
-                </div>
-
-                <!-- Рыбный ланч -->
-                <div class="combo-option">
-                    <h3>Рыбный</h3>
-                    <div class="combo-dishes">
-                        <div class="combo-dish">
-                            <img src="images/soup_fish1.jpg" alt="Уха по-фински">
-                            <p class="combo-dish-label">Уха по-фински</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/main_fish1.jpg" alt="Лосось на гриле">
-                            <p class="combo-dish-label">Лосось на гриле</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/drink_cold3.jpg" alt="Апельсиновый сок">
-                            <p class="combo-dish-label">Апельсиновый сок</p>
-                        </div>
-                    </div>
-                    <p class="combo-price">930 руб.</p>
-                    <p class="combo-description">Для любителей морепродуктов</p>
-                </div>
-
-                <!-- Вегетарианский ланч -->
-                <div class="combo-option">
-                    <h3>Вегетарианский</h3>
-                    <div class="combo-dishes">
-                        <div class="combo-dish">
-                            <img src="images/soup2.jpg" alt="Грибной крем-суп">
-                            <p class="combo-dish-label">Грибной крем-суп</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/main_veg2.jpg" alt="Овощное рагу">
-                            <p class="combo-dish-label">Овощное рагу</p>
-                        </div>
-                        <div class="combo-dish">
-                            <img src="images/drink2.jpg" alt="Лимонад мятный">
-                            <p class="combo-dish-label">Лимонад мятный</p>
-                        </div>
-                    </div>
-                    <p class="combo-price">730 руб.</p>
-                    <p class="combo-description">Без мяса, но очень вкусно</p>
-                </div>
-            </div>
-
-            <div class="dessert-note">
-                <p><strong>Десерты можно добавить к любому ланчу за дополнительную плату.</strong></p>
-                <p class="small-text">Выберите десерт из раздела выше и добавьте к заказу</p>
+        <section class="dishes-section">
+            <div id="comboInfo" style="display: none;">
+                <h2>🎯 Готовые комбо-варианты</h2>
+                <p class="combo-description">Выберите готовый набор или соберите свой ланч:</p>
+                <div id="comboContainer" class="combo-container"></div>
             </div>
         </section>
+
+<div id="order-summary"></div>
+
         <div id="order-summary"></div>
 
         <section class="order-form-section">
