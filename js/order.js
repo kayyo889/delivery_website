@@ -1,12 +1,16 @@
-// Объект для хранения выбранных блюд
-let selectedDishes = {
-    soup: null,
-    main: null,
-    starter: null,
-    drink: null,
-    dessert: null
-};
+if (typeof dishes === 'undefined') {
+    var dishes = [];
+}
 
+if (typeof selectedDishes === 'undefined') {
+    var selectedDishes = {
+        soup: null,
+        main: null,
+        starter: null,
+        drink: null,
+        dessert: null
+    };
+}
 // DOM элементы
 let orderForm;
 
