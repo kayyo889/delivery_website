@@ -123,7 +123,12 @@ function showNotification(type, missingItems = []) {
         },
         'success': {
             title: 'Ланч выбран!',
-            message: 'Вы выбрали комбо "%comboName%". Общая стоимость: %price% руб.',
+            getMessage: () => {
+                if (window.lastCombo) {
+                    return `Вы выбрали комбо "${window.lastCombo.name}". Общая стоимость: ${window.lastCombo.total || window.lastCombo.price} руб.`;
+                }
+                return 'Комбо успешно выбрано!';
+            },
             color: '#4caf50'
         }
     };
