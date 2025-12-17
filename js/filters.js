@@ -1,3 +1,64 @@
+// Глобальная переменная для хранения всех блюд
+let dishes = [];
+
+// Глобальный объект для выбранных блюд
+let selectedDishes = {
+    soup: null,
+    main: null,
+    starter: null,
+    drink: null,
+    dessert: null
+};
+
+// Функция для отображения сообщения о загрузке
+function showLoadingMessage(text) {
+    const loadingDiv = document.createElement('div');
+    loadingDiv.id = 'loading-message';
+    loadingDiv.innerHTML = `<p>${text}</p>`;
+    loadingDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        z-index: 1000;
+        text-align: center;
+        font-size: 18px;
+    `;
+    document.body.appendChild(loadingDiv);
+}
+
+// Функция для скрытия сообщения о загрузке
+function hideLoadingMessage() {
+    const loadingDiv = document.getElementById('loading-message');
+    if (loadingDiv) {
+        loadingDiv.remove();
+    }
+}
+
+// Функция для отображения ошибки
+function showErrorMessage(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.innerHTML = `<p>❌ ${message}</p>`;
+    errorDiv.style.cssText = `
+        background: #ffebee;
+        color: #c62828;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 5px;
+        border-left: 4px solid #c62828;
+        text-align: center;
+    `;
+
+    const main = document.querySelector('main');
+    if (main) {
+        main.prepend(errorDiv);
+    }
+}
 // Функция для создания фильтров
 function initFilters() {
     // Обработчики для всех кнопок фильтров
@@ -170,15 +231,6 @@ function initOrderSection() {
     updateOrderDisplay();
 }
 
-// Обновленный объект для хранения выбранных блюд
-let selectedDishes = {
-    soup: null,
-    main: null,
-    starter: null,
-    drink: null,
-    dessert: null
-};
-
 // Обновленная функция обновления скрытых полей формы
 function updateHiddenFields() {
     const categories = ['soup', 'main', 'starter', 'drink', 'dessert'];
@@ -274,28 +326,52 @@ function updateOrderDisplay() {
     }
 }
 
-// Инициализация при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Создаем карточки блюд
-    createDishCards();
-    
-    // Инициализируем фильтры
-    initFilters();
-    
-    // Инициализируем раздел заказа
-    initOrderSection();
-    
-    // Обработчик отправки формы
-    document.getElementById('order-form').addEventListener('submit', function(e) {
-        const requiredCategories = ['soup', 'main', 'drink'];
-        const allRequiredSelected = requiredCategories.every(cat => selectedDishes[cat]);
-        
-        if (!allRequiredSelected) {
-            e.preventDefault();
-            alert('Пожалуйста, выберите обязательные блюда: суп, основное блюдо и напиток.');
-            return false;
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+
+        showLoadingMessage('🔄 Загрузка меню...');
+
+
+        dishes = await loadDishes();
+
+
+        if (!dishes || dishes.length === 0) {
+            throw new Error('Не удалось загрузить данные о блюдах');
         }
-        
-        return true;
-    });
+
+        console.log(`✅ Загружено ${dishes.length} блюд через API`);
+
+
+        dishes.sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+
+
+        hideLoadingMessage();
+
+
+        createDishCards();
+        initFilters();
+        initOrderSection();
+
+
+        document.getElementById('order-form').addEventListener('submit', function(e) {
+            const requiredCategories = ['soup', 'main', 'drink'];
+            const allRequiredSelected = requiredCategories.every(cat => selectedDishes[cat]);
+
+            if (!allRequiredSelected) {
+                e.preventDefault();
+                alert('Пожалуйста, выберите обязательные блюда: суп, основное блюдо и напиток.');
+                return false;
+            }
+
+            return true;
+        });
+
+        console.log('✅ Приложение полностью инициализировано с API данными');
+
+    } catch (error) {
+        console.error('❌ Ошибка инициализации:', error);
+        hideLoadingMessage();
+        showErrorMessage('Не удалось загрузить меню. Пожалуйста, проверьте подключение к интернету и обновите страницу.');
+    }
 });
+}
