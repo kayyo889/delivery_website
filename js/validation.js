@@ -1,3 +1,6 @@
+// === validation.js - ОБНОВЛЕННАЯ ВЕРСИЯ ===
+
+// Проверяем и объявляем глобальные переменные, если они не существуют
 if (typeof dishes === 'undefined') {
     var dishes = [];
 }
@@ -11,6 +14,8 @@ if (typeof selectedDishes === 'undefined') {
         dessert: null
     };
 }
+
+// Функция инициализации валидации (упрощенная)
 function initValidation() {
     const orderForm = document.getElementById('order-form');
     if (orderForm) {
@@ -18,6 +23,7 @@ function initValidation() {
         console.log('✅ Валидация формы инициализирована');
     }
 }
+
 // Определение комбо-вариантов
 const combos = {
     classic: {
@@ -47,7 +53,7 @@ const combos = {
 function checkCombo(selectedDishes) {
     for (const comboName in combos) {
         const combo = combos[comboName];
-        
+
         // Проверяем, совпадают ли выбранные блюда с этим комбо
         const soupMatch = selectedDishes.soup && selectedDishes.soup.keyword === combo.soup;
         const mainMatch = selectedDishes.main && selectedDishes.main.keyword === combo.main;
@@ -175,6 +181,7 @@ function updateOrderPrice(comboPrice) {
     }
 }
 
+// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM загружен, инициализирую валидацию...');
     initValidation();
