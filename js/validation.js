@@ -134,7 +134,7 @@ function showNotification(type, missingItems = []) {
     };
 
     const notification = notifications[type] || notifications['invalid-combo'];
-
+    const messageText = notification.getMessage ? notification.getMessage() : notification.message;
     // Создаем элемент уведомления
     const notificationEl = document.createElement('div');
     notificationEl.className = 'notification-overlay';
@@ -170,7 +170,7 @@ function showNotification(type, missingItems = []) {
             </div>
             <div class="notification-body" style="margin-bottom: 25px; color: #333;">
                 <p style="margin: 0 0 15px 0; font-size: 16px; line-height: 1.5;">
-                    ${notification.message}
+                    ${messageText}
                 </p>
                 ${missingItems.length > 0 ?
                     `<ul class="missing-items" style="text-align: left; padding-left: 20px; color: #666;">
