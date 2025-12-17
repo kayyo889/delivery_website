@@ -411,7 +411,15 @@ function selectCombo(comboKey) {
     // Обновляем отображение комбо
     displayComboInfo();
 
-    // Показываем уведомление
+   updateOrderPrice(combo.price, {
+        isValid: true,
+        comboName: combo.name,
+        comboDescription: combo.description,
+        comboPrice: combo.price,
+        comboKey: comboKey
+    });
+
+    // Показываем уведомление с реальными значениями
     setTimeout(() => {
         showNotification('success');
     }, 300);
