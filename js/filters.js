@@ -65,8 +65,6 @@ function createDishCards() {
         starter: dishes.filter(dish => dish.category === 'starter'),
         dessert: dishes.filter(dish => dish.category === 'dessert')
     };
-    dishCard.dataset.id = dish.id || dish.keyword; // добавьте эту строку
-    dishCard.dataset.category = dish.category;
     // Создаем карточки для каждой категории
     Object.keys(categories).forEach(category => {
         let container;
@@ -101,7 +99,8 @@ function createDishCards() {
             card.className = 'dish-card';
             card.setAttribute('data-dish', dish.keyword);
             card.setAttribute('data-kind', dish.kind);
-
+            card.setAttribute('data-category', dish.category);
+            card.setAttribute('data-id', dish.id || dish.keyword);
             card.innerHTML = `
                 <img src="${dish.image}" alt="${dish.name}" onerror="this.src='img/placeholder.jpg'">
                 <p class="dish-price">${dish.price} руб.</p>
@@ -122,18 +121,16 @@ function createDishCards() {
 
     console.log('Карточки блюд созданы');
 }
-// Функция для обновления состояния всех карточек блюд
-// Функция для обновления состояния всех карточек блюд
 function updateDishCards() {
     const dishCards = document.querySelectorAll('.dish-card');
 
     dishCards.forEach(card => {
-        const dishId = card.dataset.id || card.dataset.keyword;
-        const category = card.dataset.category;
+        const dishKeyword = card.getAttribute('data-dish');
+        const category = card.getAttribute('data-category');
 
         // Проверяем, выбрано ли это блюдо
         if (selectedDishes[category] &&
-            selectedDishes[category].id === dishId) {
+            selectedDishes[category].keyword === dishKeyword) {
             card.classList.add('selected');
             const btn = card.querySelector('.add-btn');
             if (btn) {
@@ -152,51 +149,23 @@ function updateDishCards() {
 function selectDish(dish) {
     console.log('Выбрано блюдо:', dish.name);
 
-    // Снимаем выделение со всех карточек
-    document.querySelectorAll('.dish-card').forEach(card => {
-        card.classList.remove('selected');
-    });
-
-    // Выделяем выбранную карточку
-    const selectedCard = document.querySelector(`[data-dish="${dish.keyword}"]`);
-    if (selectedCard) {
-        selectedCard.classList.add('selected');
-        selectedCard.querySelector('.add-btn').textContent = '✓ Добавлено';
-    }
-    // Находим все карточки этой категории
-    const categoryCards = document.querySelectorAll(`[data-category="${dish.category}"]`);
-
-    // Убираем класс selected со всех карточек этой категории
-    categoryCards.forEach(card => {
-        card.classList.remove('selected');
-        const btn = card.querySelector('.add-btn');
-        if (btn) {
-            btn.textContent = 'Добавить';
-        }
-    });
-
-    // Добавляем класс selected к выбранной карточке
-    const dishCard = event.target.closest('.dish-card');
-    if (dishCard) {
-        dishCard.classList.add('selected');
-        const btn = dishCard.querySelector('.add-btn');
-        if (btn) {
-            btn.textContent = '✓ Добавлено';
-        }
-    }
     // Сохраняем выбор
     selectedDishes[dish.category] = dish;
 
     // Обновляем отображение заказа
     updateOrderDisplay();
     updateHiddenFields();
-     if (window.displayComboInfo) {
+
+    // Обновляем ВСЕ карточки
+    updateDishCards();
+
+    // Обновляем комбо
+    if (window.displayComboInfo) {
         setTimeout(() => window.displayComboInfo(), 100);
     }
     if (window.highlightSelectedCombo) {
         setTimeout(() => window.highlightSelectedCombo(), 100);
     }
-    updateDishCards();
 }
 
 // Функция инициализации фильтров
@@ -454,14 +423,4 @@ document.addEventListener('DOMContentLoaded', async function() {
         hideLoadingMessage();
         showErrorMessage('Не удалось загрузить меню. Пожалуйста, проверьте подключение к интернету и обновите страницу.');
     }
-        loadDishes().then(loadedDishes => {
-        dishes = loadedDishes;
-        createDishCards(dishes);
-        updateOrderDisplay();
-        updateDishCards();
-        // Вызываем отображение комбо
-        if (window.displayComboInfo) {
-            setTimeout(window.displayComboInfo, 500);
-        }
-        });
 });
