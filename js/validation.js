@@ -399,6 +399,33 @@ function getDishNameByKeyword(keyword) {
     const dish = dishes.find(d => d.keyword === keyword);
     return dish ? dish.name : 'Неизвестное блюдо';
 }
+function highlightSelectedCombo() {
+    const comboCheck = checkCombo(selectedDishes);
+    const comboCards = document.querySelectorAll('.combo-card');
+
+    comboCards.forEach(card => {
+        card.classList.remove('selected');
+        const btn = card.querySelector('.combo-select-btn');
+        if (btn) {
+            btn.textContent = 'Выбрать этот набор';
+            btn.style.backgroundColor = '';
+            btn.style.color = '';
+        }
+    });
+
+    if (comboCheck.isValid) {
+        const selectedCard = document.querySelector(`.combo-card[data-combo="${comboCheck.comboKey}"]`);
+        if (selectedCard) {
+            selectedCard.classList.add('selected');
+            const btn = selectedCard.querySelector('.combo-select-btn');
+            if (btn) {
+                btn.textContent = '✓ Выбрано';
+                btn.style.backgroundColor = 'tomato';
+                btn.style.color = 'white';
+            }
+        }
+    }
+}
 
 function selectCombo(comboKey) {
     const combo = combos[comboKey];
@@ -422,22 +449,19 @@ function selectCombo(comboKey) {
         window.selectDish(drinkDish);
     }
 
-    // Создаем объект comboCheck для передачи в updateOrderPrice
-    const comboCheck = {
+     // Обновляем выделение комбо
+    setTimeout(() => {
+        highlightSelectedCombo();
+    }, 100);
+
+    // Обновляем цену и показываем уведомление
+    updateOrderPrice(combo.price, {
         isValid: true,
         comboName: combo.name,
         comboDescription: combo.description,
         comboPrice: combo.price,
         comboKey: comboKey
-    };
-
-    // Обновляем цену
-    updateOrderPrice(combo.price, comboCheck);
-
-    // Показываем уведомление
-    setTimeout(() => {
-        showNotification('success');
-    }, 300);
+    });
 }
 
 // Проверяем и создаем глобальную ссылку на selectDish, если она не существует
