@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         dishes = loadedDishes;
         createDishCards(dishes);
         updateOrderDisplay();
-
+        updateDishCards();
         // Вызываем отображение комбо
         if (window.displayComboInfo) {
             setTimeout(window.displayComboInfo, 500);
