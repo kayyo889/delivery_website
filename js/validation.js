@@ -1,10 +1,22 @@
+if (typeof dishes === 'undefined') {
+    var dishes = [];
+}
+
+if (typeof selectedDishes === 'undefined') {
+    var selectedDishes = {
+        soup: null,
+        main: null,
+        starter: null,
+        drink: null,
+        dessert: null
+    };
+}
 function initValidation() {
-    document.addEventListener('dishesLoaded', function() {
-        const orderForm = document.getElementById('order-form');
-        if (orderForm) {
-            orderForm.addEventListener('submit', validateOrderForm);
-        }
-    });
+    const orderForm = document.getElementById('order-form');
+    if (orderForm) {
+        orderForm.addEventListener('submit', validateOrderForm);
+        console.log('✅ Валидация формы инициализирована');
+    }
 }
 // Определение комбо-вариантов
 const combos = {
@@ -163,7 +175,7 @@ function updateOrderPrice(comboPrice) {
     }
 }
 
-// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM загружен, инициализирую валидацию...');
     initValidation();
 });
