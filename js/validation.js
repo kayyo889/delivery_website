@@ -385,7 +385,6 @@ function getDishNameByKeyword(keyword) {
     return dish ? dish.name : 'Неизвестное блюдо';
 }
 
-// Функция выбора комбо
 function selectCombo(comboKey) {
     const combo = combos[comboKey];
     if (!combo) return;
@@ -411,7 +410,8 @@ function selectCombo(comboKey) {
     // Обновляем отображение комбо
     displayComboInfo();
 
-   updateOrderPrice(combo.price, {
+    // Обновляем цену заказа
+    updateOrderPrice(combo.price, {
         isValid: true,
         comboName: combo.name,
         comboDescription: combo.description,
