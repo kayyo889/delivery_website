@@ -373,8 +373,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         console.log(`✅ Загружено ${dishes.length} блюд через API`);
-
-        // Скрываем сообщение о загрузке
         hideLoadingMessage();
 
         // Инициализируем все компоненты
