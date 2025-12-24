@@ -7,7 +7,114 @@ let selectedDishes = {
     drink: null,
     dessert: null
 };
+// ========== РАБОТА С LOCALSTORAGE ==========
 
+// Функция сохранения выбранных блюд в localStorage
+function saveOrderToLocalStorage() {
+    const orderToSave = {};
+
+    Object.keys(selectedDishes).forEach(category => {
+        if (selectedDishes[category]) {
+            // Сохраняем только keyword и category для экономии места
+            orderToSave[category] = {
+                keyword: selectedDishes[category].keyword,
+                category: selectedDishes[category].category
+            };
+        }
+    });
+
+    localStorage.setItem('lunchOrder', JSON.stringify(orderToSave));
+    console.log('✅ Заказ сохранен в localStorage:', orderToSave);
+}
+
+// Функция загрузки заказа из localStorage
+function loadOrderFromLocalStorage() {
+    const savedOrder = localStorage.getItem('lunchOrder');
+
+    if (!savedOrder) {
+        console.log('В localStorage нет сохраненного заказа');
+        return null;
+    }
+
+    try {
+        const parsedOrder = JSON.parse(savedOrder);
+        console.log('📥 Загружен заказ из localStorage:', parsedOrder);
+        return parsedOrder;
+    } catch (error) {
+        console.error('❌ Ошибка при чтении заказа из localStorage:', error);
+        return null;
+    }
+}
+
+// Функция восстановления выбранных блюд из localStorage
+async function restoreOrderFromLocalStorage() {
+    const savedOrder = loadOrderFromLocalStorage();
+
+    if (!savedOrder || !dishes || dishes.length === 0) {
+        return false;
+    }
+
+    let restoredCount = 0;
+
+    Object.keys(savedOrder).forEach(category => {
+        const dishData = savedOrder[category];
+
+        if (dishData && dishData.keyword) {
+            // Ищем блюдо по keyword
+            const dish = dishes.find(d => d.keyword === dishData.keyword);
+
+            if (dish) {
+                selectedDishes[category] = dish;
+                restoredCount++;
+                console.log(`✅ Восстановлено блюдо: ${dish.name} (${category})`);
+            } else {
+                console.warn(`⚠️ Блюдо с keyword="${dishData.keyword}" не найдено в загруженных данных`);
+            }
+        }
+    });
+
+    if (restoredCount > 0) {
+        updateOrderDisplay();
+        updateDishCards();
+        updateOrderPanel(); // Эта функция будет добавлена позже
+        console.log(`✅ Восстановлено ${restoredCount} блюд из localStorage`);
+        return true;
+    }
+
+    return false;
+}
+
+// Функция удаления блюда из заказа
+function removeDishFromOrder(category) {
+    if (selectedDishes[category]) {
+        console.log(`🗑️ Удалено блюдо: ${selectedDishes[category].name} (${category})`);
+        selectedDishes[category] = null;
+
+        // Сохраняем изменения в localStorage
+        saveOrderToLocalStorage();
+
+        // Обновляем отображение
+        updateOrderDisplay();
+        updateDishCards();
+        updateOrderPanel();
+
+        return true;
+    }
+    return false;
+}
+
+// Функция очистки заказа
+function clearOrder() {
+    Object.keys(selectedDishes).forEach(category => {
+        selectedDishes[category] = null;
+    });
+
+    localStorage.removeItem('lunchOrder');
+    updateOrderDisplay();
+    updateDishCards();
+    updateOrderPanel();
+    console.log('🗑️ Заказ полностью очищен');
+}
 function showLoadingMessage(text) {
     const loadingDiv = document.createElement('div');
     loadingDiv.id = 'loading-message';
@@ -145,6 +252,55 @@ function updateDishCards() {
         }
     });
 }
+function updateOrderPanel() {
+    const orderPanel = document.getElementById('order-panel');
+    const orderTotal = document.getElementById('order-panel-total');
+    const checkoutLink = document.getElementById('checkout-link');
+
+    if (!orderPanel || !orderTotal || !checkoutLink) {
+        return;
+    }
+
+    // Считаем общую стоимость
+    let total = 0;
+    let hasSelectedItems = false;
+
+    Object.values(selectedDishes).forEach(dish => {
+        if (dish) {
+            total += dish.price;
+            hasSelectedItems = true;
+        }
+    });
+
+    // Показываем/скрываем панель
+    if (hasSelectedItems) {
+        orderPanel.style.display = 'block';
+        orderTotal.textContent = `${total} руб.`;
+
+        // Проверяем, соответствует ли заказ комбо
+        const comboCheck = checkCombo(selectedDishes);
+
+        if (comboCheck.isValid) {
+            // Активируем ссылку
+            checkoutLink.href = 'order.html';
+            checkoutLink.style.opacity = '1';
+            checkoutLink.style.cursor = 'pointer';
+            checkoutLink.style.pointerEvents = 'auto';
+            checkoutLink.style.background = 'tomato';
+            checkoutLink.style.color = 'white';
+        } else {
+            // Делаем ссылку неактивной
+            checkoutLink.href = '#';
+            checkoutLink.style.opacity = '0.6';
+            checkoutLink.style.cursor = 'not-allowed';
+            checkoutLink.style.pointerEvents = 'none';
+            checkoutLink.style.background = '#ccc';
+            checkoutLink.style.color = '#666';
+        }
+    } else {
+        orderPanel.style.display = 'none';
+    }
+}
 // Функция выбора блюда
 function selectDish(dish) {
     console.log('Выбрано блюдо:', dish.name);
@@ -152,12 +308,14 @@ function selectDish(dish) {
     // Сохраняем выбор
     selectedDishes[dish.category] = dish;
 
-    // Обновляем отображение заказа
+    // Сохраняем в localStorage
+    saveOrderToLocalStorage();
+
+    // Обновляем отображение
     updateOrderDisplay();
     updateHiddenFields();
-
-    // Обновляем ВСЕ карточки
     updateDishCards();
+    updateOrderPanel(); // Обновляем панель перехода
 
     // Обновляем комбо
     if (window.displayComboInfo) {
@@ -231,66 +389,25 @@ function initOrderSection() {
         return;
     }
 
+    // Создаем панель заказа
     const orderHTML = `
-        <div class="order-section">
-            <h2>Ваш заказ</h2>
-            <div id="order-items">
-                <div class="order-category" id="soup-category" style="display: none;">
-                    <h3>🥣 Суп</h3>
-                    <p class="empty-message">Блюдо не выбрано</p>
-                    <div class="selected-item">
-                        <span class="item-name"></span>
-                        <span class="item-price"></span>
+        <div id="order-panel" class="order-panel" style="display: none;">
+            <div class="container">
+                <div class="order-panel-content">
+                    <div class="order-summary">
+                        <span class="order-label">Стоимость заказа:</span>
+                        <span id="order-panel-total" class="order-total">0 руб.</span>
                     </div>
-                </div>
-                <div class="order-category" id="main-category" style="display: none;">
-                    <h3>🍖 Основное блюдо</h3>
-                    <p class="empty-message">Блюдо не выбрано</p>
-                    <div class="selected-item">
-                        <span class="item-name"></span>
-                        <span class="item-price"></span>
-                    </div>
-                </div>
-                <div class="order-category" id="starter-category" style="display: none;">
-                    <h3>🥗 Салат или стартер</h3>
-                    <p class="empty-message">Блюдо не выбрано</p>
-                    <div class="selected-item">
-                        <span class="item-name"></span>
-                        <span class="item-price"></span>
-                    </div>
-                </div>
-                <div class="order-category" id="drink-category" style="display: none;">
-                    <h3>🥤 Напиток</h3>
-                    <p class="empty-message">Напиток не выбран</p>
-                    <div class="selected-item">
-                        <span class="item-name"></span>
-                        <span class="item-price"></span>
-                    </div>
-                </div>
-                <div class="order-category" id="dessert-category" style="display: none;">
-                    <h3>🍰 Десерт</h3>
-                    <p class="empty-message">Десерт не выбран</p>
-                    <div class="selected-item">
-                        <span class="item-name"></span>
-                        <span class="item-price"></span>
-                    </div>
-                </div>
-                <div id="nothing-selected" style="text-align: center; padding: 20px; color: #888; font-style: italic;">
-                    Ничего не выбрано
-                </div>
-            </div>
-            <div id="order-total" style="display: none;">
-                <div class="total-line"></div>
-                <div class="total-price">
-                    <span>Стоимость заказа:</span>
-                    <span id="total-amount">0 руб.</span>
+                    <a id="checkout-link" href="#" class="checkout-btn">
+                        Перейти к оформлению
+                    </a>
                 </div>
             </div>
         </div>
     `;
 
     orderSummary.innerHTML = orderHTML;
-    updateOrderDisplay();
+    updateOrderPanel(); // Инициализируем панель
 }
 
 // Обновление отображения заказа
@@ -375,16 +492,12 @@ function updateHiddenFields() {
         input.value = dish ? dish.keyword : '';
     });
 }
-
 // ========== ГЛАВНАЯ ИНИЦИАЛИЗАЦИЯ ==========
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('DOM загружен, начинаю инициализацию...');
 
     try {
-        // Показываем сообщение о загрузке
         showLoadingMessage('🔄 Загрузка меню...');
-
-        // Загружаем блюда через API
         dishes = await loadDishes();
 
         if (!dishes || dishes.length === 0) {
@@ -399,22 +512,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         initFilters();
         initOrderSection();
 
-        // Добавляем обработчик отправки формы
-        const orderForm = document.getElementById('order-form');
-        if (orderForm) {
-            orderForm.addEventListener('submit', function(e) {
-                const requiredCategories = ['soup', 'main', 'drink'];
-                const allRequiredSelected = requiredCategories.every(cat => selectedDishes[cat]);
-
-                if (!allRequiredSelected) {
-                    e.preventDefault();
-                    alert('Пожалуйста, выберите обязательные блюда: суп, основное блюдо и напиток.');
-                    return false;
-                }
-
-                return true;
-            });
-        }
+        // Восстанавливаем заказ из localStorage
+        await restoreOrderFromLocalStorage();
 
         console.log('✅ Приложение полностью инициализировано');
 

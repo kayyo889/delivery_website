@@ -206,51 +206,7 @@
         </section>
 
         <div id="order-summary"></div>
-
-        <section class="order-form-section">
-            <h2>Оформление заказа</h2>
-            <form id="order-form" action="https://httpbin.org/post" method="post">
-                <input type="hidden" id="soup-input" name="soup">
-                <input type="hidden" id="main-input" name="main">
-                <input type="hidden" id="starter-input" name="starter">
-                <input type="hidden" id="drink-input" name="drink">
-                <input type="hidden" id="dessert-input" name="dessert">
-
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="customer-name">Ваше имя *</label>
-                        <input type="text" id="customer-name" name="customer_name" required>
-                    </div>
-                    <div class="form-group half">
-                        <label for="customer-phone">Телефон *</label>
-                        <input type="tel" id="customer-phone" name="customer_phone" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="delivery-address">Адрес доставки *</label>
-                    <input type="text" id="delivery-address" name="delivery_address" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="delivery-time">Время доставки</label>
-                    <select id="delivery-time" name="delivery_time">
-                        <option value="12:00-13:00">12:00 - 13:00</option>
-                        <option value="13:00-14:00" selected>13:00 - 14:00</option>
-                        <option value="14:00-15:00">14:00 - 15:00</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="comments">Комментарий к заказу</label>
-                    <textarea id="comments" name="comments" rows="3"></textarea>
-                </div>
-
-                <button type="submit" class="submit-order-btn">Оформить заказ</button>
-            </form>
-        </section>
     </main>
-
     <footer id="contacts">
         <div class="container">
             <div class="footer-content">

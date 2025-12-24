@@ -504,3 +504,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Экспортируем функции для использования в других файлах
 window.highlightSelectedCombo = highlightSelectedCombo;
 window.selectCombo = selectCombo;
+window.checkCombo = checkCombo;

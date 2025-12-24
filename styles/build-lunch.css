@@ -445,3 +445,89 @@
 .combo-card:nth-child(2) { animation-delay: 0.8s; }
 .combo-card:nth-child(3) { animation-delay: 0.9s; }
 
+.order-panel {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 2px solid tomato;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    z-index: 1000;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.order-panel-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.order-summary {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.order-label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.order-total {
+    font-size: 22px;
+    font-weight: 700;
+    color: tomato;
+}
+
+.checkout-btn {
+    background: tomato;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.checkout-btn:hover {
+    background: #ff6347;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 99, 71, 0.3);
+}
+
+/* Неактивное состояние ссылки */
+.checkout-btn.disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .order-panel-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .order-summary {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
