@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформить заказ - LunchExpress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/build-lunch.css">
+    <style>
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .checkout-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .checkout-section h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 24px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .order-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            border: 2px solid #f0f0f0;
+        }
+
+        .order-item-info {
+            flex: 1;
+        }
+
+        .order-item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .order-item-category {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-item-price {
+            font-weight: 700;
+            color: tomato;
+            font-size: 18px;
+            margin-right: 20px;
+        }
+
+        .remove-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #ff5252;
+        }
+
+        .empty-order-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            background: #f9f9f9;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
+        }
+
+        .empty-order-message a {
+            color: tomato;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .empty-order-message a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: tomato;
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            padding: 15px;
+            background: tomato;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-order-btn:hover {
+            background: #ff6347;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 99, 71, 0.3);
+        }
+
+        .submit-order-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .order-total-summary {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .total-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .total-label {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: tomato;
+        }
+
+        @media (max-width: 900px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .checkout-section {
+                padding: 20px;
+            }
+
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .order-item-price {
+                margin-right: 0;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1>LunchExpress</h1>
+                <nav>
+                    <ul class="nav-flex">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="build-lunch.html">Собрать ланч</a></li>
+                        <li><a href="order.html" class="active">Оформить заказ</a></li>
+                        <li><a href="index.html#feedback">Обратная связь</a></li>
+                        <li><a href="index.html#auth">Вход</a></li>
+                        <li><a href="index.html#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 style="margin: 30px 0; color: #333;">Оформление заказа</h1>
+
+        <div class="checkout-container">
+            <section class="checkout-section">
+                <h2>Состав заказа</h2>
+                <div id="order-items-container" class="order-items-list"></div>
+            </section>
+
+            <section class="checkout-section">
+                <h2>Оформление заказа</h2>
+
+                <div id="order-summary-in-form" style="margin-bottom: 30px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #555;">Выбранные блюда:</h3>
+                    <div id="form-order-items"></div>
+                    <div class="order-total-summary">
+                        <div class="total-line">
+                            <span class="total-label">Итого:</span>
+                            <span id="form-total-amount" class="total-amount">0 руб.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="order-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customer-name">Ваше имя *</label>
+                            <input type="text" id="customer-name" name="customer_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-phone">Телефон *</label>
+                            <input type="tel" id="customer-phone" name="customer_phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivery-address">Адрес доставки *</label>
+                        <input type="text" id="delivery-address" name="delivery_address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="delivery-time">Время доставки</label>
+                        <select id="delivery-time" name="delivery_time">
+                            <option value="12:00-13:00">12:00 - 13:00</option>
+                            <option value="13:00-14:00" selected>13:00 - 14:00</option>
+                            <option value="14:00-15:00">14:00 - 15:00</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Комментарий к заказу</label>
+                        <textarea id="comments" name="comments" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-order-btn" class="submit-order-btn" disabled>
+                        Отправить заказ
+                    </button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer id="contacts">
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <h3>Контакты</h3>
+                    <p>Адрес: г. Москва, ул. Промышленная, д. 15</p>
+                    <p>Телефон: <a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                    <p>Email: <a href="mailto:info@lunchexpress.ru">info@lunchexpress.ru</a></p>
+                    <p>Время работы: Пн-Пт с 9:00 до 18:00</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/validation.js"></script>
+    <script>
+        let currentOrder = {};
+        let allDishes = [];
+
+        async function loadOrder() {
+            try {
+                allDishes = await loadDishes();
+                const savedOrder = localStorage.getItem('lunchOrder');
+
+                if (!savedOrder) {
+                    showEmptyOrderMessage();
+                    return;
+                }
+
+                const parsedOrder = JSON.parse(savedOrder);
+                Object.keys(parsedOrder).forEach(category => {
+                    const dishData = parsedOrder[category];
+                    if (dishData && dishData.keyword) {
+                        const dish = allDishes.find(d => d.keyword === dishData.keyword);
+                        if (dish) {
+                            currentOrder[category] = dish;
+                        }
+                    }
+                });
+
+                renderOrderItems();
+                updateFormOrderSummary();
+                updateSubmitButton();
+
+            } catch (error) {
+                console.error('Ошибка при загрузке заказа:', error);
+                showEmptyOrderMessage();
+            }
+        }
+
+        function renderOrderItems() {
+            const container = document.getElementById('order-items-container');
+            if (!container) return;
+
+            if (Object.keys(currentOrder).length === 0) {
+                showEmptyOrderMessage();
+                return;
+            }
+
+            container.innerHTML = '';
+            Object.keys(currentOrder).forEach(category => {
+                const dish = currentOrder[category];
+                if (dish) {
+                    const itemElement = createOrderItemElement(dish, category);
+                    container.appendChild(itemElement);
+                }
+            });
+        }
+
+        function createOrderItemElement(dish, category) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'order-item';
+            itemDiv.dataset.category = category;
+
+            const categoryNames = {
+                'soup': 'Суп',
+                'main': 'Основное блюдо',
+                'starter': 'Салат/Стартер',
+                'drink': 'Напиток',
+                'dessert': 'Десерт'
+            };
+
+            itemDiv.innerHTML = `
+                <div class="order-item-info">
+                    <div class="order-item-name">${dish.name}</div>
+                    <div class="order-item-category">${categoryNames[category] || category}</div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="order-item-price">${dish.price} руб.</span>
+                    <button class="remove-btn" data-category="${category}">Удалить</button>
+                </div>
+            `;
+
+            const removeBtn = itemDiv.querySelector('.remove-btn');
+            removeBtn.addEventListener('click', () => removeDishFromOrder(category));
+
+            return itemDiv;
+        }
+
+        function removeDishFromOrder(category) {
+            if (currentOrder[category]) {
+                console.log(`Удаление блюда из категории ${category}`);
+                delete currentOrder[category];
+                saveOrderChanges();
+                renderOrderItems();
+                updateFormOrderSummary();
+                updateSubmitButton();
+            }
+        }
+
+        function saveOrderChanges() {
+            const orderToSave = {};
+            Object.keys(currentOrder).forEach(category => {
+                if (currentOrder[category]) {
+                    orderToSave[category] = {
+                        keyword: currentOrder[category].keyword,
+                        category: currentOrder[category].category
+                    };
+                }
+            });
+
+            if (Object.keys(orderToSave).length === 0) {
+                localStorage.removeItem('lunchOrder');
+                showEmptyOrderMessage();
+            } else {
+                localStorage.setItem('lunchOrder', JSON.stringify(orderToSave));
+            }
+        }
+
+        function showEmptyOrderMessage() {
+            const container = document.getElementById('order-items-container');
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="empty-order-message">
+                    <p style="font-size: 18px; margin-bottom: 15px;">Ничего не выбрано.</p>
+                    <p>Чтобы добавить блюда в заказ, перейдите на страницу
+                    <a href="build-lunch.html">Собрать ланч</a>.</p>
+                </div>
+            `;
+
+            document.getElementById('form-order-items').innerHTML = '';
+            document.getElementById('form-total-amount').textContent = '0 руб.';
+            document.getElementById('submit-order-btn').disabled = true;
+        }
+
+        function updateFormOrderSummary() {
+            const container = document.getElementById('form-order-items');
+            const totalElement = document.getElementById('form-total-amount');
+
+            if (!container || !totalElement) return;
+
+            container.innerHTML = '';
+            let total = 0;
+            const categories = ['soup', 'main', 'starter', 'drink', 'dessert'];
+            const categoryNames = {
+                'soup': 'Суп',
+                'main': 'Основное блюдо',
+                'starter': 'Салат/Стартер',
+                'drink': 'Напиток',
+                'dessert': 'Десерт'
+            };
+
+            categories.forEach(category => {
+                const dish = currentOrder[category];
+                const itemDiv = document.createElement('div');
+                itemDiv.style.cssText = 'display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0;';
+
+                if (dish) {
+                    itemDiv.innerHTML = `
+                        <span>${categoryNames[category]}: ${dish.name}</span>
+                        <span style="font-weight: 600;">${dish.price} руб.</span>
+                    `;
+                    total += dish.price;
+                } else {
+                    const notSelectedText = category === 'main' ? 'Не выбрано' : 'Не выбран';
+                    itemDiv.innerHTML = `
+                        <span>${categoryNames[category]}: <span style="color: #999;">${notSelectedText}</span></span>
+                        <span style="color: #999;">0 руб.</span>
+                    `;
+                }
+
+                container.appendChild(itemDiv);
+            });
+
+            totalElement.textContent = `${total} руб.`;
+        }
+
+        function updateSubmitButton() {
+            const submitBtn = document.getElementById('submit-order-btn');
+            if (!submitBtn) return;
+
+            const comboCheck = checkCombo(currentOrder);
+            const hasRequired = currentOrder['soup'] && currentOrder['main'] && currentOrder['drink'];
+
+            if (comboCheck.isValid && hasRequired) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить заказ';
+            } else {
+                submitBtn.disabled = true;
+                if (!hasRequired) {
+                    submitBtn.textContent = 'Выберите суп, основное блюдо и напиток';
+                } else {
+                    submitBtn.textContent = 'Состав заказа не соответствует комбо';
+                }
+            }
+        }
+
+        async function submitOrder(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('submit-order-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+
+            try {
+                const comboCheck = checkCombo(currentOrder);
+                if (!comboCheck.isValid) {
+                    throw new Error('Состав заказа не соответствует ни одному комбо');
+                }
+
+                const orderData = {
+                    customer_name: document.getElementById('customer-name').value,
+                    customer_phone: document.getElementById('customer-phone').value,
+                    delivery_address: document.getElementById('delivery-address').value,
+                    delivery_time: document.getElementById('delivery-time').value,
+                    comments: document.getElementById('comments').value,
+                    combo: comboCheck.comboKey,
+                    total: calculateOrderTotal(),
+                    dishes: {}
+                };
+
+                Object.keys(currentOrder).forEach(category => {
+                    if (currentOrder[category]) {
+                        orderData.dishes[category] = currentOrder[category].keyword;
+                    }
+                });
+
+                console.log('Отправка заказа:', orderData);
+
+                const response = await fetch('https://edu.std-900.ist.mospolytech.ru/labs/api/order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка сервера: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('Ответ сервера:', result);
+
+                if (result.success) {
+                    localStorage.removeItem('lunchOrder');
+                    alert('✅ Заказ успешно оформлен! Номер вашего заказа: ' + (result.orderId || 'не указан'));
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error(result.message || 'Неизвестная ошибка сервера');
+                }
+
+            } catch (error) {
+                console.error('❌ Ошибка при оформлении заказа:', error);
+                alert('❌ Ошибка при оформлении заказа: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Отправить заказ';
+            }
+        }
+
+        function calculateOrderTotal() {
+            let total = 0;
+            Object.values(currentOrder).forEach(dish => {
+                if (dish) total += dish.price;
+            });
+            return total;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadOrder();
+
+            const orderForm = document.getElementById('order-form');
+            if (orderForm) {
+                orderForm.addEventListener('submit', submitOrder);
+            }
+
+            const formInputs = document.querySelectorAll('#order-form input, #order-form select');
+            formInputs.forEach(input => {
+                input.addEventListener('input', updateSubmitButton);
+                input.addEventListener('change', updateSubmitButton);
+            });
+        });
+    </script>
+</body>
+</html>
