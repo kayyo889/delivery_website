@@ -1,0 +1,19 @@
+# Jekyll
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata/
+
+# Node.js
+node_modules/
+server/node_modules/
+npm-debug.log*
+
+# Ruby
+.bundle/
+vendor/
+*.gem
+
+# Временные файлы
+*.tmp
+*.temp

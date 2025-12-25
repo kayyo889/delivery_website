@@ -1,0 +1,18 @@
+# Исключаем ненужные папки
+exclude:
+  - node_modules
+  - server/node_modules
+  - vendor
+  - .bundle
+  - package-lock.json
+  - package.json
+
+# Основные настройки
+title: "Сайт доставки"
+description: "Сервис быстрой доставки"
+baseurl: ""
+url: ""
+
+# Настройки Jekyll
+markdown: kramdown
+theme: jekyll-theme-primer
