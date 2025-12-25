@@ -124,7 +124,7 @@ async function updateOrder(orderId, orderData) {
     try {
 
 
-        const response = await fetch('http://localhost:3000/api/orders/${orderId}', {
+        const response = await fetch(`http://localhost:3000/api/orders/${orderId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ async function deleteOrder(orderId) {
     try {
         // ВАЖНО: Замените URL на реальный эндпоинт вашего API для удаления заказа
         // Для удаления используется метод DELETE[citation:7]
-        const response = await fetch('http://localhost:3000/api/orders/${orderId}', {
+        const response = await fetch(`http://localhost:3000/api/orders/${orderId}`, {
             method: 'DELETE'
         });
 
