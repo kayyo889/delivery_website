@@ -379,6 +379,22 @@
         "starter": "frenchfries2",
         "drink": "morkovniy"
       }
+    },
+    {
+      "id": "931a",
+      "customer_name": "павы",
+      "customer_phone": "авыаа",
+      "delivery_address": "выавыа",
+      "delivery_time": "13:00-14:00",
+      "comments": "",
+      "combo": "fish",
+      "total": 980,
+      "dishes": {
+        "soup": "norvezhskiy",
+        "main": "shrimppasta",
+        "starter": "frenchfries2",
+        "drink": "morkovniy"
+      }
     }
   ]
 }
