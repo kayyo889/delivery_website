@@ -584,7 +584,7 @@
                 // Очищаем localStorage и показываем успех
                 localStorage.removeItem('lunchOrder');
                 alert('✅ Заказ успешно оформлен! Номер вашего заказа: ' + (result.orderId || result.order?.id || 'не указан'));
-                window.location.href = 'index.html';
+                window.location.href = 'orders.html';
 
             } catch (error) {
                 console.error('❌ Ошибка при оформлении заказа:', error);
