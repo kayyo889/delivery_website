@@ -99,9 +99,7 @@ function showNotification(message, type = 'success') {
 // Функция для загрузки списка заказов с сервера
 async function loadOrders() {
     try {
-        // ВАЖНО: Замените URL на реальный эндпоинт вашего API для получения заказов
-        // Пример: https://edu.std-900.ist.mospolytech.ru/labs/api/orders
-        const response = await fetch('https://edu.std-900.ist.mospolytech.ru/labs/api/orders');
+        const response = await fetch('http://localhost:3000/orders');
 
         if (!response.ok) {
             throw new Error(`Ошибка сервера: ${response.status}`);
@@ -124,10 +122,10 @@ async function loadOrders() {
 // Функция для отправки обновленных данных заказа
 async function updateOrder(orderId, orderData) {
     try {
-        // ВАЖНО: Замените URL на реальный эндпоинт вашего API для обновления заказа
-        // Для обновления обычно используются методы PUT или PATCH[citation:7]
-        const response = await fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}`, {
-            method: 'PUT', // или 'PATCH' для частичного обновления[citation:7]
+
+
+        const response = await fetch('http://localhost:3000/orders/${orderId}', {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -152,7 +150,7 @@ async function deleteOrder(orderId) {
     try {
         // ВАЖНО: Замените URL на реальный эндпоинт вашего API для удаления заказа
         // Для удаления используется метод DELETE[citation:7]
-        const response = await fetch(`https://edu.std-900.ist.mospolytech.ru/labs/api/orders/${orderId}`, {
+        const response = await fetch('http://localhost:3000/orders/${orderId}', {
             method: 'DELETE'
         });
 
