@@ -544,7 +544,7 @@
 
                 console.log('Отправка заказа:', orderData);
 
-                const response = await fetch('https://edu.std-900.ist.mospolytech.ru/labs/api/order', {
+                const response = await fetch('http://localhost:3000/orders', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
