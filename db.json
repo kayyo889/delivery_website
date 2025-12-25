@@ -1,6 +1,6 @@
 {
   "dishes": [
-    [{"category":"soup","count":"350 \u0433",
+    {"category":"soup","count":"350 \u0433",
     "created_at":"2024-11-18T19:11:51",
     "id":1,
     "image":"https://edu.std-900.ist.mospolytech.ru/labs/api/images/soups/gazpacho",
@@ -67,7 +67,7 @@
     {"category":"dessert","count":"140 \u0433\u0440","created_at":"2024-11-18T19:11:52","id":28,"image":"https://edu.std-900.ist.mospolytech.ru/labs/api/images/desserts/chocolatecake","keyword":"chocolatecake","kind":"small","name":"\u0428\u043e\u043a\u043e\u043b\u0430\u0434\u043d\u044b\u0439 \u0442\u043e\u0440\u0442","price":270},
     {"category":"dessert","count":"350 \u0433\u0440","created_at":"2024-11-18T19:11:52","id":29,"image":"https://edu.std-900.ist.mospolytech.ru/labs/api/images/desserts/donuts2","keyword":"donuts2","kind":"medium","name":"\u041f\u043e\u043d\u0447\u0438\u043a\u0438 (3 \u0448\u0442\u0443\u043a\u0438)","price":410},
     {"category":"dessert","count":"700 \u0433\u0440","created_at":"2024-11-18T19:11:52","id":30,"image":"https://edu.std-900.ist.mospolytech.ru/labs/api/images/desserts/donuts","keyword":"donuts","kind":"large","name":"\u041f\u043e\u043d\u0447\u0438\u043a\u0438 (6 \u0448\u0442\u0443\u043a)",
-    "price":650}]
+    "price":650}
   ],
   "orders": [
     {
