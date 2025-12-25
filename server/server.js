@@ -11,25 +11,22 @@ const path = require('path');
 // 2. СОЗДАЁМ СЕРВЕР
 // ====================
 const app = express();
-const PORT = 3000; // или 8080, или 5000
+const PORT = 3000;
 
 // ====================
 // 3. НАСТРАИВАЕМ СЕРВЕР
 // ====================
-// Разрешаем запросы с любого сайта (для теста)
 app.use(cors());
-
-// Умеем читать JSON из запросов
 app.use(bodyParser.json());
 
-// Для удобства - логируем все запросы
+// Логирование запросов - ИСПРАВЛЕНА СИНТАКСИЧЕСКАЯ ОШИБКА
 app.use((req, res, next) => {
-    console.log('[${new Date().toISOString()}] ${req.method} ${req.url}');
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
 });
 
 // ====================
-// 4. "БАЗА ДАННЫХ" - файл orders.json
+// 4. ПУТИ К ФАЙЛАМ
 // ====================
 const ORDERS_FILE = path.join(__dirname, 'orders.json');
 const DISHES_FILE = path.join(__dirname, 'db.json');
@@ -40,7 +37,7 @@ async function loadOrders() {
         const data = await fs.readFile(ORDERS_FILE, 'utf8');
         return JSON.parse(data);
     } catch (error) {
-        // Если файла нет - создаём пустой массив
+        console.log('Файл orders.json не найден, создаем пустой массив');
         return [];
     }
 }
@@ -50,19 +47,40 @@ async function saveOrders(orders) {
     await fs.writeFile(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
 }
 
+// Функция загрузки блюд
+async function loadDishes() {
+    try {
+        const data = await fs.readFile(DISHES_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Ошибка загрузки блюд:', error);
+        return { dishes: [] };
+    }
+}
+
+// ====================
+// 5. API МАРШРУТЫ
+// ====================
+
+// 5.1 ПОЛУЧИТЬ ВСЕ БЛЮДА
 app.get('/api/dishes', async (req, res) => {
     try {
         console.log('Запрос на получение блюд...');
+        const data = await loadDishes();
 
-        // Читаем файл db.json
-        const data = await fs.readFile(DISHES_FILE, 'utf8');
-        const dishes = JSON.parse(data);
-
-        console.log(`Загружено ${dishes.length} блюд из db.json`);
-
-        // Возвращаем блюда в том же формате, что и старый API
-        res.json(dishes);
-
+        // Проверяем структуру данных
+        if (Array.isArray(data)) {
+            // Если db.json содержит массив
+            console.log(`Загружено ${data.length} блюд (массив)`);
+            res.json(data);
+        } else if (data.dishes && Array.isArray(data.dishes)) {
+            // Если db.json содержит объект с полем dishes
+            console.log(`Загружено ${data.dishes.length} блюд (объект.dishes)`);
+            res.json(data.dishes);
+        } else {
+            console.log('Неправильная структура db.json, возвращаем пустой массив');
+            res.json([]);
+        }
     } catch (error) {
         console.error('Ошибка при чтении db.json:', error);
         res.status(500).json({
@@ -71,40 +89,33 @@ app.get('/api/dishes', async (req, res) => {
         });
     }
 });
-app.get('/api/orders', async (req, res) => {
-    try {
-        console.log('Получаем список заказов...');
-        const orders = await loadOrders();
 
-        // Сортируем по дате (новые сначала)
-        orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-        res.json({
-            success: true,
-            data: orders,
-            count: orders.length
-        });
-
-    } catch (error) {
-        console.error('Ошибка при получении заказов:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Ошибка сервера при получении заказов'
-        });
-    }
-});
-
-// 5.2 СОЗДАТЬ НОВЫЙ ЗАКАЗ (POST /api/order)
+// 5.2 СОЗДАТЬ НОВЫЙ ЗАКАЗ (POST /api/order) - ИСПРАВЛЕН ПУТЬ
 app.post('/api/order', async (req, res) => {
     try {
-        console.log('Создаём новый заказ:', req.body);
+        console.log('Создаём новый заказ:', JSON.stringify(req.body, null, 2));
 
         const orders = await loadOrders();
+
+        // Проверяем обязательные поля
+        if (!req.body.customer_name || !req.body.customer_phone || !req.body.delivery_address) {
+            return res.status(400).json({
+                success: false,
+                message: 'Заполните обязательные поля: имя, телефон, адрес'
+            });
+        }
 
         // Создаём новый заказ
         const newOrder = {
-            id: Date.now().toString(), // Простой ID из времени
-            ...req.body, // Все данные из формы
+            id: Date.now().toString(),
+            customer_name: req.body.customer_name,
+            customer_phone: req.body.customer_phone,
+            delivery_address: req.body.delivery_address,
+            delivery_time: req.body.delivery_time || '13:00-14:00',
+            comments: req.body.comments || '',
+            combo: req.body.combo || 'classic',
+            total: req.body.total || 0,
+            dishes: req.body.dishes || {},
             createdAt: new Date().toISOString(),
             status: 'new'
         };
@@ -133,7 +144,31 @@ app.post('/api/order', async (req, res) => {
     }
 });
 
-// 5.3 ПОЛУЧИТЬ ОДИН ЗАКАЗ (GET /api/orders/:id)
+// 5.3 ПОЛУЧИТЬ ВСЕ ЗАКАЗЫ
+app.get('/api/orders', async (req, res) => {
+    try {
+        console.log('Получаем список заказов...');
+        const orders = await loadOrders();
+
+        // Сортируем по дате (новые сначала)
+        orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        res.json({
+            success: true,
+            data: orders,
+            count: orders.length
+        });
+
+    } catch (error) {
+        console.error('Ошибка при получении заказов:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Ошибка сервера при получении заказов'
+        });
+    }
+});
+
+// 5.4 ПОЛУЧИТЬ ОДИН ЗАКАЗ
 app.get('/api/orders/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
@@ -163,12 +198,11 @@ app.get('/api/orders/:id', async (req, res) => {
     }
 });
 
-// 5.4 ОБНОВИТЬ ЗАКАЗ (PUT /api/orders/:id)
+// 5.5 ОБНОВИТЬ ЗАКАЗ
 app.put('/api/orders/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
         console.log('Обновляем заказ ID:', orderId);
-        console.log('Новые данные:', req.body);
 
         const orders = await loadOrders();
         const orderIndex = orders.findIndex(o => o.id === orderId);
@@ -182,9 +216,9 @@ app.put('/api/orders/:id', async (req, res) => {
 
         // Обновляем заказ
         orders[orderIndex] = {
-            ...orders[orderIndex], // Старые данные
-            ...req.body,           // Новые данные
-            updatedAt: new Date().toISOString() // Метка обновления
+            ...orders[orderIndex],
+            ...req.body,
+            updatedAt: new Date().toISOString()
         };
 
         await saveOrders(orders);
@@ -204,7 +238,7 @@ app.put('/api/orders/:id', async (req, res) => {
     }
 });
 
-// 5.5 УДАЛИТЬ ЗАКАЗ (DELETE /api/orders/:id)
+// 5.6 УДАЛИТЬ ЗАКАЗ
 app.delete('/api/orders/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
@@ -246,7 +280,7 @@ app.delete('/api/orders/:id', async (req, res) => {
 app.listen(PORT, () => {
     console.log('=================================');
     console.log('🚀 Сервер запущен!');
-    console.log('📍 Адрес: http://localhost:${PORT}');
+    console.log(`📍 Адрес: http://localhost:${PORT}`);
     console.log('📊 API доступно по пути: /api/...');
     console.log('=================================');
 });
