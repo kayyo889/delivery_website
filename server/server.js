@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 // 4. "БАЗА ДАННЫХ" - файл orders.json
 // ====================
 const ORDERS_FILE = path.join(__dirname, 'orders.json');
+const DISHES_FILE = path.join(__dirname, 'db.json');
 
 // Функция загрузки заказов
 async function loadOrders() {
@@ -49,11 +50,27 @@ async function saveOrders(orders) {
     await fs.writeFile(ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
 }
 
-// ====================
-// 5. ВСЕ МАРШРУТЫ API
-// ====================
+app.get('/api/dishes', async (req, res) => {
+    try {
+        console.log('Запрос на получение блюд...');
 
-// 5.1 ПОЛУЧИТЬ ВСЕ ЗАКАЗЫ (GET /api/orders)
+        // Читаем файл db.json
+        const data = await fs.readFile(DISHES_FILE, 'utf8');
+        const dishes = JSON.parse(data);
+
+        console.log(`Загружено ${dishes.length} блюд из db.json`);
+
+        // Возвращаем блюда в том же формате, что и старый API
+        res.json(dishes);
+
+    } catch (error) {
+        console.error('Ошибка при чтении db.json:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Не удалось загрузить меню'
+        });
+    }
+});
 app.get('/api/orders', async (req, res) => {
     try {
         console.log('Получаем список заказов...');

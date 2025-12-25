@@ -1,6 +1,6 @@
 // api.js - обновленная версия с преобразованием категорий
 async function loadDishes() {
-    const url = 'http://localhost:3000/dishes';
+    const url = 'http://localhost:3000/api/dishes';
 
     try {
         console.log('Загрузка блюд из API...');
