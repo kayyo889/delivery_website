@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "customer_name": "Иван Петров",
+    "customer_phone": "+79991112233",
+    "delivery_address": "ул. Примерная, д. 10",
+    "delivery_time": "13:00-14:00",
+    "total": 645,
+    "dishes": {
+      "soup": "Куриный суп",
+      "main": "Котлеты с пюре",
+      "drink": "Апельсиновый сок"
+    },
+    "combo": "classic",
+    "createdAt": "2023-10-15T10:30:00.000Z",
+    "status": "delivered"
+  }
+]
