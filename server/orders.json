@@ -68,5 +68,40 @@
     },
     "createdAt": "2025-12-25T19:15:40.166Z",
     "status": "new"
+  },
+  {
+    "id": "1766691543768",
+    "customer_name": "пвыа",
+    "customer_phone": "пвыа",
+    "delivery_address": "ыпва",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "fish",
+    "total": 980,
+    "dishes": {
+      "soup": "norvezhskiy",
+      "main": "shrimppasta",
+      "starter": "frenchfries2",
+      "drink": "morkovniy"
+    },
+    "createdAt": "2025-12-25T19:39:03.768Z",
+    "status": "new"
+  },
+  {
+    "id": "1766691567009",
+    "customer_name": "ывпа",
+    "customer_phone": "ыпва",
+    "delivery_address": "ывпа",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "fish",
+    "total": 720,
+    "dishes": {
+      "soup": "norvezhskiy",
+      "main": "shrimppasta",
+      "drink": "morkovniy"
+    },
+    "createdAt": "2025-12-25T19:39:27.009Z",
+    "status": "new"
   }
 ]
