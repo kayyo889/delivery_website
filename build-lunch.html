@@ -230,10 +230,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('orderSuccess') === 'true') {
-                const orderId = urlParams.get('orderId');
-                // Показываем специальное сообщение об успехе
-                console.log('Заказ успешно оформлен! ID:', orderId);
+            if (params.get('orderSuccess') === 'true') {
+                console.log('Заказ успешно оформлен!');
+                // Не показываем уведомления
+                window.suppressNotifications = true;
             }
             loadDishes().then(dishes => {
                 console.log('Всего загружено блюд:', dishes.length);
