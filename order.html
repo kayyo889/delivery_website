@@ -561,7 +561,7 @@
 
     console.log('Статус ответа:', response.status);
     console.log('OK?', response.ok);
-
+    const result = await response.json();
     // Пытаемся прочитать ответ, даже если ошибка
     let result;
     try {

@@ -50,5 +50,23 @@
     },
     "createdAt": "2025-12-25T19:05:37.551Z",
     "status": "new"
+  },
+  {
+    "id": "1766690140166",
+    "customer_name": "ваыф",
+    "customer_phone": "фыавафыв",
+    "delivery_address": "фыавафы",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "fish",
+    "total": 980,
+    "dishes": {
+      "soup": "norvezhskiy",
+      "main": "shrimppasta",
+      "starter": "frenchfries2",
+      "drink": "morkovniy"
+    },
+    "createdAt": "2025-12-25T19:15:40.166Z",
+    "status": "new"
   }
 ]
