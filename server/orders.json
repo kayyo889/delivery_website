@@ -1,113 +1,19 @@
 [
   {
-    "id": "1",
-    "customer_name": "Иван Петров",
-    "customer_phone": "+79991112233",
-    "delivery_address": "ул. Примерная, д. 10",
-    "delivery_time": "13:00-14:00",
-    "total": 645,
-    "dishes": {
-      "soup": "Куриный суп",
-      "main": "Котлеты с пюре",
-      "drink": "Апельсиновый сок"
-    },
-    "combo": "classic",
-    "createdAt": "2023-10-15T10:30:00.000Z",
-    "status": "delivered"
-  },
-  {
-    "id": "1766689522466",
-    "customer_name": "gdfsgdg",
-    "customer_phone": "gsdfgsdfg",
-    "delivery_address": "gsdfgsdfg",
+    "id": "1766693275781",
+    "customer_name": "Михаил",
+    "customer_phone": "89991234567",
+    "delivery_address": "ул такотакол",
     "delivery_time": "13:00-14:00",
     "comments": "",
-    "combo": "fish",
-    "total": 980,
+    "combo": "budget",
+    "total": 425,
     "dishes": {
-      "soup": "norvezhskiy",
-      "main": "shrimppasta",
-      "starter": "frenchfries2",
-      "drink": "morkovniy"
+      "soup": "gribnoy",
+      "main": "zharenaya-kartoshka",
+      "drink": "tea"
     },
-    "createdAt": "2025-12-25T19:05:22.466Z",
-    "status": "new"
-  },
-  {
-    "id": "1766689537551",
-    "customer_name": "dasdas",
-    "customer_phone": "dasdasd",
-    "delivery_address": "dasdasd",
-    "delivery_time": "13:00-14:00",
-    "comments": "",
-    "combo": "fish",
-    "total": 980,
-    "dishes": {
-      "soup": "norvezhskiy",
-      "main": "shrimppasta",
-      "starter": "frenchfries2",
-      "drink": "morkovniy"
-    },
-    "createdAt": "2025-12-25T19:05:37.551Z",
-    "status": "new"
-  },
-  {
-    "id": "1766690140166",
-    "customer_name": "ваыф",
-    "customer_phone": "фыавафыв",
-    "delivery_address": "фыавафы",
-    "delivery_time": "13:00-14:00",
-    "comments": "",
-    "combo": "fish",
-    "total": 980,
-    "dishes": {
-      "soup": "norvezhskiy",
-      "main": "shrimppasta",
-      "starter": "frenchfries2",
-      "drink": "morkovniy"
-    },
-    "createdAt": "2025-12-25T19:15:40.166Z",
-    "status": "new",
-    "full_name": "ваыф",
-    "email": "mikhailmoskvichiov@gmail.com",
-    "phone": "г9889",
-    "delivery_type": "standard",
-    "comment": "",
-    "updatedAt": "2025-12-25T20:04:43.197Z"
-  },
-  {
-    "id": "1766691543768",
-    "customer_name": "пвыа",
-    "customer_phone": "пвыа",
-    "delivery_address": "ыпва",
-    "delivery_time": "13:00-14:00",
-    "comments": "",
-    "combo": "fish",
-    "total": 980,
-    "dishes": {
-      "soup": "norvezhskiy",
-      "main": "shrimppasta",
-      "starter": "frenchfries2",
-      "drink": "morkovniy"
-    },
-    "createdAt": "2025-12-25T19:39:03.768Z",
-    "status": "new"
-  },
-  {
-    "id": "1766691567009",
-    "customer_name": "ывпа",
-    "customer_phone": "ыпва",
-    "delivery_address": "ывпа",
-    "delivery_time": "13:00-14:00",
-    "comments": "",
-    "combo": "fish",
-    "total": 720,
-    "dishes": {
-      "soup": "norvezhskiy",
-      "main": "shrimppasta",
-      "drink": "morkovniy"
-    },
-    "createdAt": "2025-12-25T19:39:27.009Z",
+    "createdAt": "2025-12-25T20:07:55.781Z",
     "status": "new"
   }
 ]

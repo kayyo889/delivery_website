@@ -94,6 +94,10 @@ function checkCombo(selectedDishes) {
 
 // Функция для показа уведомления
 function showNotification(type, missingItems = []) {
+    if (type === 'no-lunch' && window.justOrdered) {
+        console.log('Не показываем уведомление, т.к. заказ только что оформлен');
+        return; // Не показываем уведомление
+    }
     const notifications = {
         'no-lunch': {
             title: 'Вы не выбрали ланч',
