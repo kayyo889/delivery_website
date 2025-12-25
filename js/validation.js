@@ -99,6 +99,12 @@ function checkCombo(selectedDishes) {
 
 // Функция для показа уведомления
 function showNotification(type, missingItems = []) {
+     console.log('=== SHOW NOTIFICATION CALLED ===');
+        console.log('Type:', type);
+        console.log('Current URL:', window.location.href);
+        console.log('Pathname:', window.location.pathname);
+        console.log('SessionStorage hideLunchNotification:', sessionStorage.getItem('hideLunchNotification'));
+        console.trace();
     if (type === 'no-lunch' && window.justOrdered) {
         console.log('Не показываем уведомление, т.к. заказ только что оформлен');
         return; // Не показываем уведомление
