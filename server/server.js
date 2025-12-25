@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 // Логирование запросов - ИСПРАВЛЕНА СИНТАКСИЧЕСКАЯ ОШИБКА
 app.use((req, res, next) => {
-    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log('[${new Date().toISOString()}] ${req.method} ${req.url}');
     next();
 });
 
@@ -71,11 +71,11 @@ app.get('/api/dishes', async (req, res) => {
         // Проверяем структуру данных
         if (Array.isArray(data)) {
             // Если db.json содержит массив
-            console.log(`Загружено ${data.length} блюд (массив)`);
+            console.log('Загружено ${data.length} блюд (массив)');
             res.json(data);
         } else if (data.dishes && Array.isArray(data.dishes)) {
             // Если db.json содержит объект с полем dishes
-            console.log(`Загружено ${data.dishes.length} блюд (объект.dishes)`);
+            console.log('Загружено ${data.dishes.length} блюд (объект.dishes)');
             res.json(data.dishes);
         } else {
             console.log('Неправильная структура db.json, возвращаем пустой массив');
@@ -280,7 +280,7 @@ app.delete('/api/orders/:id', async (req, res) => {
 app.listen(PORT, () => {
     console.log('=================================');
     console.log('🚀 Сервер запущен!');
-    console.log(`📍 Адрес: http://localhost:${PORT}`);
+    console.log('📍 Адрес: http://localhost:${PORT}');
     console.log('📊 API доступно по пути: /api/...');
     console.log('=================================');
 });
