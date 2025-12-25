@@ -105,12 +105,33 @@ async function loadOrders() {
             throw new Error(`Ошибка сервера: ${response.status}`);
         }
 
-        const orders = await response.json();
+        const result = await response.json(); // ← получаем ОБЪЕКТ
+
+        console.log('Ответ от сервера:', result);
+
+        // Проверяем структуру ответа
+        let ordersArray;
+
+        // Вариант 1: Сервер вернул объект с полем data
+        if (result && result.success && Array.isArray(result.data)) {
+            ordersArray = result.data;
+            console.log(`Загружено ${ordersArray.length} заказов из result.data`);
+        }
+        // Вариант 2: Сервер вернул просто массив (старый вариант)
+        else if (Array.isArray(result)) {
+            ordersArray = result;
+            console.log(`Загружено ${ordersArray.length} заказов из массива`);
+        }
+        // Вариант 3: Неизвестная структура
+        else {
+            console.error('Неизвестная структура ответа от сервера:', result);
+            return [];
+        }
 
         // Сортируем заказы по дате (сначала новые)
-        orders.sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
+        ordersArray.sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
 
-        return orders;
+        return ordersArray;
 
     } catch (error) {
         console.error('Ошибка при загрузке заказов:', error);
@@ -195,18 +216,19 @@ function renderOrdersTable(orders) {
         loadingIndicator.style.display = 'none';
     }
 
-    // Проверяем, есть ли заказы
-    if (!orders || orders.length === 0) {
-        emptyOrdersMsg.style.display = 'block';
+    // Проверяем, есть ли заказы (и что это массив)
+    if (!orders || !Array.isArray(orders) || orders.length === 0) {
+        if (emptyOrdersMsg) emptyOrdersMsg.style.display = 'block';
+        if (ordersTable) ordersTable.style.display = 'none';
         return;
     }
 
     // Показываем таблицу
-    ordersTable.style.display = 'table';
-    emptyOrdersMsg.style.display = 'none';
+    if (ordersTable) ordersTable.style.display = 'table';
+    if (emptyOrdersMsg) emptyOrdersMsg.style.display = 'none';
 
     // Очищаем тело таблицы
-    ordersTbody.innerHTML = '';
+    if (ordersTbody) ordersTbody.innerHTML = '';
 
     // Добавляем каждый заказ в таблицу
     orders.forEach((order, index) => {

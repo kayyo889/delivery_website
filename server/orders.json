@@ -103,5 +103,22 @@
     },
     "createdAt": "2025-12-25T19:39:27.009Z",
     "status": "new"
+  },
+  {
+    "id": "1766692460792",
+    "customer_name": "ваимы",
+    "customer_phone": "пваы",
+    "delivery_address": "ывпапвыапывап",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "budget",
+    "total": 425,
+    "dishes": {
+      "soup": "gribnoy",
+      "main": "zharenaya-kartoshka",
+      "drink": "tea"
+    },
+    "createdAt": "2025-12-25T19:54:20.792Z",
+    "status": "new"
   }
 ]
