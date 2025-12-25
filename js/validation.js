@@ -18,6 +18,12 @@ if (typeof selectedDishes === 'undefined') {
 
 // Функция инициализации валидации
 function initValidation() {
+     const isOrderPage = window.location.pathname.includes('order.html');
+
+    if (isOrderPage) {
+        console.log('✅ Страница заказа - валидация отключена');
+        return;
+    }
     if (!document.getElementById('order-form')) {
         console.log('На этой странице нет формы заказа, валидация не нужна');
         return;
@@ -103,6 +109,11 @@ function showNotification(type, missingItems = []) {
         console.log('Type:', type);
         console.log('Current URL:', window.location.href);
         console.log('Pathname:', window.location.pathname);
+        const isOrderPage = window.location.pathname.includes('order.html');
+        if (isOrderPage) {
+            console.log('На странице заказа - уведомление блокировано');
+            return;
+        }
         console.log('SessionStorage hideLunchNotification:', sessionStorage.getItem('hideLunchNotification'));
         console.trace();
     if (type === 'no-lunch' && window.justOrdered) {
@@ -489,10 +500,18 @@ if (typeof window.selectDish === 'undefined') {
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM загружен, инициализирую валидацию...');
-    initValidation();
+    const isOrderPage = window.location.pathname.includes('order.html');
+    const isBuildLunchPage = window.location.pathname.includes('build-lunch.html');
 
-    // Отображаем информацию о комбо после загрузки блюд
-    // Первый запуск через 1 секунду, потом ждем загрузки dishes
+    // Инициализируем валидацию ТОЛЬКО на странице сборки ланча
+    if (isBuildLunchPage) {
+        console.log('Страница сборки ланча - инициализирую валидацию');
+        initValidation();
+    } else if (isOrderPage) {
+        console.log('Страница заказа - валидация НЕ инициализируется');
+        // Ничего не делаем - валидация отключена
+    }
+
     setTimeout(() => {
         if (dishes && dishes.length > 0) {
             displayComboInfo();
