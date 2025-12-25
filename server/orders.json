@@ -67,7 +67,13 @@
       "drink": "morkovniy"
     },
     "createdAt": "2025-12-25T19:15:40.166Z",
-    "status": "new"
+    "status": "new",
+    "full_name": "ваыф",
+    "email": "mikhailmoskvichiov@gmail.com",
+    "phone": "г9889",
+    "delivery_type": "standard",
+    "comment": "",
+    "updatedAt": "2025-12-25T20:04:43.197Z"
   },
   {
     "id": "1766691543768",
