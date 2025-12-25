@@ -18,6 +18,11 @@ if (typeof selectedDishes === 'undefined') {
 
 // Функция инициализации валидации
 function initValidation() {
+    if (!document.getElementById('order-form')) {
+        console.log('На этой странице нет формы заказа, валидация не нужна');
+        return;
+    }
+
     const orderForm = document.getElementById('order-form');
     if (orderForm) {
         orderForm.addEventListener('submit', validateOrderForm);

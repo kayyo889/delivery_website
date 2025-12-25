@@ -585,9 +585,12 @@
                 localStorage.removeItem('lunchOrder');
                 window.justOrdered = true;
                 alert('✅ Заказ успешно оформлен! Номер вашего заказа: ' + (result.orderId || result.order?.id || 'не указан'));
-                window.location.href = 'index.html?orderSuccess=true&orderId=' + result.orderId;
+                setTimeout(() => {
+                    window.location.href = 'index.html?orderSuccess=true&orderId=' + result.orderId;
+                }, 300);
 
-            } catch (error) {
+            }
+            catch (error) {
                 console.error('❌ Ошибка при оформлении заказа:', error);
                 alert('❌ Ошибка при оформлении заказа: ' + error.message);
                 submitBtn.disabled = false;

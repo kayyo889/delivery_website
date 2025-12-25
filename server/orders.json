@@ -100,5 +100,56 @@
     },
     "createdAt": "2025-12-25T20:22:57.840Z",
     "status": "new"
+  },
+  {
+    "id": "1766694618857",
+    "customer_name": "3",
+    "customer_phone": "3",
+    "delivery_address": "3",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "budget",
+    "total": 425,
+    "dishes": {
+      "soup": "gribnoy",
+      "main": "zharenaya-kartoshka",
+      "drink": "tea"
+    },
+    "createdAt": "2025-12-25T20:30:18.857Z",
+    "status": "new"
+  },
+  {
+    "id": "1766694669852",
+    "customer_name": "4",
+    "customer_phone": "4",
+    "delivery_address": "4",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "classic",
+    "total": 675,
+    "dishes": {
+      "soup": "chicken",
+      "main": "kotlety-s-pyure",
+      "drink": "apelsinoviy"
+    },
+    "createdAt": "2025-12-25T20:31:09.852Z",
+    "status": "new"
+  },
+  {
+    "id": "1766694847399",
+    "customer_name": "5",
+    "customer_phone": "5",
+    "delivery_address": "5",
+    "delivery_time": "13:00-14:00",
+    "comments": "",
+    "combo": "fish",
+    "total": 720,
+    "dishes": {
+      "soup": "norvezhskiy",
+      "main": "shrimppasta",
+      "drink": "morkovniy"
+    },
+    "createdAt": "2025-12-25T20:34:07.399Z",
+    "status": "new"
   }
 ]
