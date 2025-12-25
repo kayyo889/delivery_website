@@ -229,6 +229,12 @@
     <script src="js/validation.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('orderSuccess') === 'true') {
+                const orderId = urlParams.get('orderId');
+                // Показываем специальное сообщение об успехе
+                console.log('Заказ успешно оформлен! ID:', orderId);
+            }
             loadDishes().then(dishes => {
                 console.log('Всего загружено блюд:', dishes.length);
 

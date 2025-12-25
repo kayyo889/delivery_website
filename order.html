@@ -581,11 +581,11 @@
 
                 console.log('Успешный ответ:', result);
                 sessionStorage.setItem('hideLunchNotification', 'true');
-                // Очищаем localStorage и показываем успех
+
                 localStorage.removeItem('lunchOrder');
                 window.justOrdered = true;
                 alert('✅ Заказ успешно оформлен! Номер вашего заказа: ' + (result.orderId || result.order?.id || 'не указан'));
-                window.location.href = 'orders.html';
+                window.location.href = 'index.html?orderSuccess=true&orderId=' + result.orderId;
 
             } catch (error) {
                 console.error('❌ Ошибка при оформлении заказа:', error);
