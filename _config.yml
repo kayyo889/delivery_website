@@ -1,4 +1,3 @@
-# Исключаем ненужные папки
 exclude:
   - node_modules
   - server/node_modules
