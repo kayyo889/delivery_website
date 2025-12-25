@@ -5,13 +5,16 @@ exclude:
   - .bundle
   - package-lock.json
   - package.json
+  - .gitignore
+  - .gitmodules
 
-# Основные настройки
-title: "Сайт доставки"
-description: "Сервис быстрой доставки"
+title: "РЎР°Р№С‚ РґРѕСЃС‚Р°РІРєРё"
+description: "РЎРµСЂРІРёСЃ Р±С‹СЃС‚СЂРѕР№ РґРѕСЃС‚Р°РІРєРё"
 baseurl: ""
 url: ""
 
-# Настройки Jekyll
 markdown: kramdown
 theme: jekyll-theme-primer
+
+plugins:
+  - jekyll-feed

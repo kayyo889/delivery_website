@@ -94,7 +94,7 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
-// ==================== ФУНКЦИИ ДЛЯ РАБОТЫ С API ====================
+
 
 // Функция для загрузки списка заказов с сервера
 async function loadOrders() {
